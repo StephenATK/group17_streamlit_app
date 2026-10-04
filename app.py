@@ -423,27 +423,60 @@ def space_id():
         return DEFAULT_SPACE
 
 
+def _secret(name):
+    try:
+        return st.secrets.get(name)
+    except Exception:
+        return None
+
+
 @st.cache_resource(show_spinner=False)
-def live_client(sid):
+def live_client(sid, tok):
+    """Connect to the Space. Sending a Hugging Face token makes ZeroGPU count calls against
+    that account's free GPU allowance instead of the much smaller anonymous one."""
     from gradio_client import Client
+    if tok:
+        for kw in ("token", "hf_token"):          # the argument name differs between gradio_client versions
+            try:
+                return Client(sid, **{kw: tok})
+            except TypeError:
+                continue
     return Client(sid)
 
 
 def ask_live(q):
     """Send one message to the Space. Returns (answer, seconds); raises on any failure."""
     t0 = time.time()
-    client = live_client(space_id())
-    try:
-        job = client.submit(q, api_name="/predict")
-    except Exception:
-        job = client.submit(q, fn_index=0)
+    client = live_client(space_id(), _secret("HF_TOKEN"))
+    job, last = None, None
+    for kw in ({"api_name": "/predict"}, {"api_name": "/answer"}, {"fn_index": 0}):
+        try:
+            job = client.submit(q, **kw)
+            break
+        except Exception as e:                    # wrong endpoint name: try the next one
+            last = e
+    if job is None:
+        raise last
     out = job.result(timeout=LIVE_TIMEOUT_S)
     if isinstance(out, (list, tuple)):
         out = out[0] if out else ""
     out = str(out or "").strip()
     if not out:
-        raise RuntimeError("empty answer")
+        raise RuntimeError("the Space returned an empty answer")
     return out, time.time() - t0
+
+
+def _err_text(e):
+    msg = f"{type(e).__name__}: {e}".strip()
+    return msg[:500] + ("…" if len(msg) > 500 else "")
+
+
+def _detail(err):
+    if not err:
+        return ""
+    return (f'<details><summary>Technical detail</summary><div style="border-left-color:{ALERT};background:#FBE9E6;'
+            f'font-family:ui-monospace,Consolas,monospace;font-size:.85rem">{html.escape(err)}</div></details>')
+
 
 # ----------------------------------------------------------------------------
 # Assistant: chat product over the recorded held-out answers
@@ -509,14 +542,15 @@ def render_turn(gen, summ, turn):
         return bot_html(rich(turn["text"], flags), f"{BOT_NAME} · Model 2, answering live", "ft", " ".join(tags))
     if turn["kind"] == "nomatch":
         sug = "".join(f"<li>{rich(gen.iloc[i]['instruction'])}</li>" for i in turn["alts"])
-        lead = "The live model did not answer in time. " if turn.get("fallback") else ""
+        lead = "The live model did not answer. " if turn.get("fallback") else ""
         return bot_html(lead + "I don't have a recorded answer for anything close to that, so I won't guess. "
                         f"The nearest questions I was tested on are:<ul style='margin:.4rem 0 0'>{sug}</ul>",
-                        BOT_NAME, "sys")
+                        BOT_NAME, "sys", extra=_detail(turn.get("err")))
     models = {WHO[0]: ["finetuned"], WHO[1]: ["baseline"]}.get(turn["who"], ["baseline", "finetuned"])
     note = ""
     if turn.get("fallback"):
-        note = bot_html("The live model did not answer in time, so here is the closest recorded answer instead.", BOT_NAME, "sys")
+        note = bot_html("The live model did not answer, so here is the closest recorded answer instead.", BOT_NAME, "sys",
+                        extra=_detail(turn.get("err")))
     return note + "".join(answer_html(gen, summ, turn, m) for m in models)
 
 
@@ -577,15 +611,17 @@ def page_assistant():
                     text, secs = ask_live(q)
                     turn = {"role": "bot", "kind": "live", "text": text, "secs": secs, "q": q}
                     st.session_state.live_ok = True
-                except Exception:
+                except Exception as e:
                     st.session_state.live_ok = False
+                    st.session_state.live_err = _err_text(e)
                     fallback = True
             if turn is None:
                 hits = match(gen, q, k=3)
                 idx, sim = hits[0]
-                turn = ({"role": "bot", "kind": "answer", "row": idx, "sim": sim, "who": who, "fallback": fallback}
+                err = st.session_state.get("live_err") if fallback else None
+                turn = ({"role": "bot", "kind": "answer", "row": idx, "sim": sim, "who": who, "fallback": fallback, "err": err}
                         if sim >= MATCH_MIN
-                        else {"role": "bot", "kind": "nomatch", "alts": [i for i, _ in hits], "fallback": fallback})
+                        else {"role": "bot", "kind": "nomatch", "alts": [i for i, _ in hits], "fallback": fallback, "err": err})
                 time.sleep(0.4)
             slot.markdown(render_turn(gen, summ, turn), unsafe_allow_html=True)
             st.session_state.thread.append(turn)
@@ -611,6 +647,21 @@ def page_assistant():
             if c2.button("New conversation", disabled=not st.session_state.thread):
                 st.session_state.thread = []
                 st.rerun()
+
+        with st.expander("Live model connection"):
+            tok = "set" if _secret("HF_TOKEN") else "not set"
+            st.markdown(f'<p class="g-note">Space: <code>{html.escape(space_id())}</code>. Hugging Face token in app secrets: {tok}.</p>',
+                        unsafe_allow_html=True)
+            if st.button("Test live connection"):
+                with st.spinner("Asking the live model. A sleeping Space can take a minute to wake…"):
+                    try:
+                        text, secs = ask_live("Hello, can you help me with my order?")
+                        st.session_state.live_ok = True
+                        st.success(f"Connected. Barbie answered in {secs:.0f} s: {text[:160]}")
+                    except Exception as e:
+                        st.session_state.live_ok = False
+                        st.session_state.live_err = _err_text(e)
+                        st.error(f"Could not reach the live model. {st.session_state.live_err}")
 
 
 # ----------------------------------------------------------------------------
