@@ -1,0 +1,37 @@
+{
+  "rows_raw": 26872,
+  "columns": [
+    "flags",
+    "instruction",
+    "category",
+    "intent",
+    "response"
+  ],
+  "changed_instruction": 551,
+  "changed_response": 624,
+  "dropped_empty": 0,
+  "dropped_duplicate_questions": 2598,
+  "rows_clean": 24274,
+  "regex_examples": [
+    {
+      "raw": "help  me canceling purchase {{Order Number}}",
+      "cleaned": "help me canceling purchase {{Order Number}}"
+    },
+    {
+      "raw": "want assistance to cancel order  {{Order Number}}",
+      "cleaned": "want assistance to cancel order {{Order Number}}"
+    },
+    {
+      "raw": "help me to cancel my  last goddamn purchase",
+      "cleaned": "help me to cancel my last goddamn purchase"
+    },
+    {
+      "raw": "can  uhelp me canceling order {{Order Number}}",
+      "cleaned": "can uhelp me canceling order {{Order Number}}"
+    },
+    {
+      "raw": "i no longer want purchase  {{Order Number}}",
+      "cleaned": "i no longer want purchase {{Order Number}}"
+    }
+  ]
+}

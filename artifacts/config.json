@@ -1,0 +1,22 @@
+{
+  "model_id": "meta-llama/Llama-3.2-1B-Instruct",
+  "dataset_id": "bitext/Bitext-customer-support-llm-chatbot-training-dataset",
+  "seed": 42,
+  "n_train": 6000,
+  "n_val": 300,
+  "n_test": 300,
+  "max_len": 464,
+  "max_new_tokens": 280,
+  "epochs": 1,
+  "lr": 0.0002,
+  "batch_size": 8,
+  "grad_accum": 2,
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05
+  },
+  "system_prompt": "You are a helpful, polite customer-service assistant. Answer the customer's message clearly and concisely. Where a personal detail is needed, use a placeholder such as {{Order Number}} or {{Person Name}} rather than inventing one.",
+  "judge_model": null,
+  "date": "2026-10-03"
+}

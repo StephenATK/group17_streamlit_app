@@ -1,0 +1,9 @@
+.idea/
+__pycache__/
+*.pyc
+venv/
+.venv/
+artifacts/human_rating_sheet.csv
+artifacts/human_rating_key.csv
+artifacts/ratings/
+artifacts/lora_adapter/

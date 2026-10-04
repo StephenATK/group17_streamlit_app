@@ -1,0 +1,483 @@
+{
+  "n_test": 300,
+  "models": {
+    "baseline": {
+      "metrics": {
+        "rougeL": {
+          "mean": 0.2445555865792937,
+          "ci_low": 0.23769921097335797,
+          "ci_high": 0.2514978683261506,
+          "n": 300
+        },
+        "bertscore_f1": {
+          "mean": 0.8045527203877767,
+          "ci_low": 0.8012168208261331,
+          "ci_high": 0.8078036031723023,
+          "n": 300
+        },
+        "slot_recall": {
+          "mean": 0.19963235294117646,
+          "ci_low": 0.14043504901960785,
+          "ci_high": 0.26839767156862737,
+          "n": 136
+        },
+        "relevance_query": {
+          "mean": 0.6856938287615776,
+          "ci_low": 0.6693072787274916,
+          "ci_high": 0.7012752439801891,
+          "n": 300
+        },
+        "sim_reference": {
+          "mean": 0.7174179510275522,
+          "ci_low": 0.7027828776712218,
+          "ci_high": 0.7322386577278376,
+          "n": 300
+        },
+        "log_perplexity": {
+          "mean": 2.4952565546830496,
+          "ci_low": 2.453554024666548,
+          "ci_high": 2.5387066527605056,
+          "n": 300
+        },
+        "distinct2": {
+          "mean": 0.9129806803253481,
+          "ci_low": 0.9041672381380035,
+          "ci_high": 0.9211179576769039,
+          "n": 300
+        },
+        "halluc_proxy": {
+          "mean": 0.02666666666666667,
+          "ci_low": 0.01,
+          "ci_high": 0.04666666666666667,
+          "n": 300
+        },
+        "invalid_slot_rate": {
+          "mean": 0.06,
+          "ci_low": 0.03333333333333333,
+          "ci_high": 0.08666666666666667,
+          "n": 300
+        },
+        "degenerate": {
+          "mean": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 300
+        },
+        "n_words": {
+          "mean": 83.90333333333334,
+          "ci_low": 78.96891666666667,
+          "ci_high": 88.89341666666667,
+          "n": 300
+        },
+        "latency_s": {
+          "mean": 0.5468368220329286,
+          "ci_low": 0.5468368220329286,
+          "ci_high": 0.5468368220329286,
+          "n": 300
+        }
+      },
+      "label": "Llama-3.2-1B-Instruct (zero-shot)"
+    },
+    "finetuned": {
+      "metrics": {
+        "rougeL": {
+          "mean": 0.24480272825099547,
+          "ci_low": 0.2381133698660912,
+          "ci_high": 0.25182862398835326,
+          "n": 300
+        },
+        "bertscore_f1": {
+          "mean": 0.8051287744442622,
+          "ci_low": 0.801859930937489,
+          "ci_high": 0.8083130468825499,
+          "n": 300
+        },
+        "slot_recall": {
+          "mean": 0.19595588235294117,
+          "ci_low": 0.13737438725490198,
+          "ci_high": 0.26154411764705865,
+          "n": 136
+        },
+        "relevance_query": {
+          "mean": 0.6856902427474658,
+          "ci_low": 0.6696232230477036,
+          "ci_high": 0.7008852599089345,
+          "n": 300
+        },
+        "sim_reference": {
+          "mean": 0.7192435100674629,
+          "ci_low": 0.7046461256941159,
+          "ci_high": 0.7339831304575006,
+          "n": 300
+        },
+        "log_perplexity": {
+          "mean": 2.4978499460220336,
+          "ci_low": 2.4575903256038822,
+          "ci_high": 2.5407122824986774,
+          "n": 300
+        },
+        "distinct2": {
+          "mean": 0.9138885202119891,
+          "ci_low": 0.9058519696788082,
+          "ci_high": 0.921558241268758,
+          "n": 300
+        },
+        "halluc_proxy": {
+          "mean": 0.03,
+          "ci_low": 0.013333333333333334,
+          "ci_high": 0.05,
+          "n": 300
+        },
+        "invalid_slot_rate": {
+          "mean": 0.06,
+          "ci_low": 0.03666666666666667,
+          "ci_high": 0.09,
+          "n": 300
+        },
+        "degenerate": {
+          "mean": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 300
+        },
+        "n_words": {
+          "mean": 83.53,
+          "ci_low": 78.7495,
+          "ci_high": 88.57358333333333,
+          "n": 300
+        },
+        "latency_s": {
+          "mean": 1.0995858955383297,
+          "ci_low": 1.0995858955383297,
+          "ci_high": 1.0995858955383297,
+          "n": 300
+        }
+      },
+      "label": "Llama-3.2-1B-Instruct + QLoRA SFT"
+    }
+  },
+  "tests": {
+    "rougeL": {
+      "delta": 0.000247141671701789,
+      "ci_low": -0.0013146919554351442,
+      "ci_high": 0.002004481964500775,
+      "n": 300
+    },
+    "bertscore_f1": {
+      "delta": 0.000576054056485494,
+      "ci_low": 6.328534086545308e-05,
+      "ci_high": 0.001129490440090497,
+      "n": 300
+    },
+    "slot_recall": {
+      "delta": -0.003676470588235294,
+      "ci_low": -0.022058823529411766,
+      "ci_high": 0.011029411764705883,
+      "n": 136
+    },
+    "relevance_query": {
+      "delta": -3.5860141118367513e-06,
+      "ci_low": -0.0028439082006613413,
+      "ci_high": 0.0030197607850035017,
+      "n": 300
+    },
+    "sim_reference": {
+      "delta": 0.0018255590399106343,
+      "ci_low": -0.0012413605352242787,
+      "ci_high": 0.005188767927388349,
+      "n": 300
+    },
+    "log_perplexity": {
+      "delta": 0.0025933913389841715,
+      "ci_low": -0.008805417289336521,
+      "ci_high": 0.013285484095414477,
+      "n": 300
+    },
+    "distinct2": {
+      "delta": 0.0009078398866410524,
+      "ci_low": -0.0018733128670672759,
+      "ci_high": 0.004080088024749384,
+      "n": 300
+    },
+    "halluc_proxy": {
+      "delta": 0.0033333333333333335,
+      "ci_low": -0.006666666666666667,
+      "ci_high": 0.013333333333333334,
+      "n": 300
+    },
+    "invalid_slot_rate": {
+      "delta": 0.0,
+      "ci_low": -0.01,
+      "ci_high": 0.01,
+      "n": 300
+    },
+    "degenerate": {
+      "delta": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "n": 300
+    },
+    "n_words": {
+      "delta": -0.37333333333333335,
+      "ci_low": -1.4968333333333332,
+      "ci_high": 0.6267499999999996,
+      "n": 300
+    },
+    "latency_s": {
+      "delta": 0.5527490735054014,
+      "ci_low": 0.5527490735054014,
+      "ci_high": 0.5527490735054014,
+      "n": 300
+    }
+  },
+  "scorecard": {
+    "rougeL": "tie",
+    "bertscore_f1": "finetuned",
+    "slot_recall": "tie",
+    "relevance_query": "tie",
+    "sim_reference": "tie",
+    "log_perplexity": "tie",
+    "distinct2": "tie",
+    "halluc_proxy": "tie",
+    "invalid_slot_rate": "tie",
+    "degenerate": "tie",
+    "n_words": null,
+    "latency_s": null
+  },
+  "metric_meta": {
+    "rougeL": {
+      "label": "ROUGE-L F1 vs reference",
+      "direction": "higher",
+      "group": "Correctness"
+    },
+    "bertscore_f1": {
+      "label": "BERTScore F1 vs reference",
+      "direction": "higher",
+      "group": "Correctness"
+    },
+    "slot_recall": {
+      "label": "Slot ({{...}}) recall",
+      "direction": "higher",
+      "group": "Correctness"
+    },
+    "relevance_query": {
+      "label": "Relevance: cos(query, answer)",
+      "direction": "higher",
+      "group": "Relevance"
+    },
+    "sim_reference": {
+      "label": "Similarity: cos(reference, answer)",
+      "direction": "higher",
+      "group": "Relevance"
+    },
+    "log_perplexity": {
+      "label": "Fluency: log-perplexity (GPT-2)",
+      "direction": "lower",
+      "group": "Fluency"
+    },
+    "distinct2": {
+      "label": "Distinct-2 (variety)",
+      "direction": "higher",
+      "group": "Fluency"
+    },
+    "halluc_proxy": {
+      "label": "Hallucination proxy rate (regex)",
+      "direction": "lower",
+      "group": "Hallucination / error"
+    },
+    "invalid_slot_rate": {
+      "label": "Invalid-slot rate",
+      "direction": "lower",
+      "group": "Hallucination / error"
+    },
+    "degenerate": {
+      "label": "Degenerate-output rate",
+      "direction": "lower",
+      "group": "Hallucination / error"
+    },
+    "n_words": {
+      "label": "Answer length (words)",
+      "direction": null,
+      "group": "Descriptive"
+    },
+    "latency_s": {
+      "label": "Latency per answer (s)",
+      "direction": null,
+      "group": "Descriptive"
+    }
+  },
+  "wins": {
+    "baseline": 0,
+    "finetuned": 1,
+    "ties": 9
+  },
+  "best_model": "finetuned",
+  "by_category": {
+    "ACCOUNT": {
+      "n": 67,
+      "rougeL": {
+        "baseline": 0.22888890563861705,
+        "finetuned": 0.22753865147480803
+      },
+      "bertscore_f1": {
+        "baseline": 0.8031113147735596,
+        "finetuned": 0.8031996488571167
+      },
+      "halluc_proxy": {
+        "baseline": 0.0,
+        "finetuned": 0.0
+      }
+    },
+    "CANCEL": {
+      "n": 12,
+      "rougeL": {
+        "baseline": 0.22829252990058277,
+        "finetuned": 0.23959644418492357
+      },
+      "bertscore_f1": {
+        "baseline": 0.7936136722564697,
+        "finetuned": 0.7946166396141052
+      },
+      "halluc_proxy": {
+        "baseline": 0.0,
+        "finetuned": 0.08333333333333333
+      }
+    },
+    "CONTACT": {
+      "n": 24,
+      "rougeL": {
+        "baseline": 0.23273573940985912,
+        "finetuned": 0.23077233304961994
+      },
+      "bertscore_f1": {
+        "baseline": 0.7878067493438721,
+        "finetuned": 0.7901938557624817
+      },
+      "halluc_proxy": {
+        "baseline": 0.08333333333333333,
+        "finetuned": 0.08333333333333333
+      }
+    },
+    "DELIVERY": {
+      "n": 20,
+      "rougeL": {
+        "baseline": 0.24491745916263713,
+        "finetuned": 0.25002150440481763
+      },
+      "bertscore_f1": {
+        "baseline": 0.8025916814804077,
+        "finetuned": 0.8033316731452942
+      },
+      "halluc_proxy": {
+        "baseline": 0.05,
+        "finetuned": 0.05
+      }
+    },
+    "FEEDBACK": {
+      "n": 24,
+      "rougeL": {
+        "baseline": 0.24129427042355145,
+        "finetuned": 0.2389370467454647
+      },
+      "bertscore_f1": {
+        "baseline": 0.7989646792411804,
+        "finetuned": 0.7997303009033203
+      },
+      "halluc_proxy": {
+        "baseline": 0.08333333333333333,
+        "finetuned": 0.08333333333333333
+      }
+    },
+    "INVOICE": {
+      "n": 22,
+      "rougeL": {
+        "baseline": 0.2659930745808195,
+        "finetuned": 0.263318503619125
+      },
+      "bertscore_f1": {
+        "baseline": 0.8207021951675415,
+        "finetuned": 0.8191347718238831
+      },
+      "halluc_proxy": {
+        "baseline": 0.0,
+        "finetuned": 0.0
+      }
+    },
+    "ORDER": {
+      "n": 39,
+      "rougeL": {
+        "baseline": 0.271950151243929,
+        "finetuned": 0.27021802604216355
+      },
+      "bertscore_f1": {
+        "baseline": 0.8127949237823486,
+        "finetuned": 0.8127065300941467
+      },
+      "halluc_proxy": {
+        "baseline": 0.0,
+        "finetuned": 0.0
+      }
+    },
+    "PAYMENT": {
+      "n": 24,
+      "rougeL": {
+        "baseline": 0.2454889931532025,
+        "finetuned": 0.2503823956994742
+      },
+      "bertscore_f1": {
+        "baseline": 0.8061578869819641,
+        "finetuned": 0.8088980317115784
+      },
+      "halluc_proxy": {
+        "baseline": 0.041666666666666664,
+        "finetuned": 0.08333333333333333
+      }
+    },
+    "REFUND": {
+      "n": 32,
+      "rougeL": {
+        "baseline": 0.23205053280265164,
+        "finetuned": 0.2335376022711943
+      },
+      "bertscore_f1": {
+        "baseline": 0.8072924613952637,
+        "finetuned": 0.8086392283439636
+      },
+      "halluc_proxy": {
+        "baseline": 0.0625,
+        "finetuned": 0.03125
+      }
+    },
+    "SHIPPING": {
+      "n": 24,
+      "rougeL": {
+        "baseline": 0.24772111719686696,
+        "finetuned": 0.2483004475465608
+      },
+      "bertscore_f1": {
+        "baseline": 0.7967031598091125,
+        "finetuned": 0.7969252467155457
+      },
+      "halluc_proxy": {
+        "baseline": 0.0,
+        "finetuned": 0.0
+      }
+    },
+    "SUBSCRIPTION": {
+      "n": 12,
+      "rougeL": {
+        "baseline": 0.27466469004678257,
+        "finetuned": 0.27283455727007044
+      },
+      "bertscore_f1": {
+        "baseline": 0.8202643394470215,
+        "finetuned": 0.8192758560180664
+      },
+      "halluc_proxy": {
+        "baseline": 0.0,
+        "finetuned": 0.0
+      }
+    }
+  },
+  "judge_available": false
+}

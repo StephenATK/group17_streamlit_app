@@ -1,0 +1,65 @@
+id,intent,instruction,reference,resp_baseline,resp_finetuned,delta_rougeL
+230,check_cancellation_fee,"I can't find the early exit penalty, will you help me?","Sure! I'd be happy to help you find the information about the early exit penalty. Please log into your account on our website and navigate to the ""Terms and Conditions"" section where you'll be able to view the details regarding the penalty. If you have any trouble locating it, feel free to reach out to our customer support team for further assistance.","I'm here to help. I couldn't find any information about an ""early exit penalty"" in our current policies or terms. It's possible that it might be a specific feature or benefit offered by a particular service or product.
+
+Could you please provide more context or information about the service or product you're using, or the specific issue you're experiencing? This will help me better understand your query and provide a more accurate response. If you're still having trouble finding the information, I can try to assist you in searching for it or provide general guidance on how to navigate the service or product.","I'd be happy to help you find the early exit penalty. Can you please provide me with more information about your query? What type of product or service are you referring to, and are you using a specific software or platform? The more context you can provide, the better I'll be able to assist you.",0.1324224908039937
+277,check_payment_methods,what do i have to do to see the available payment modalities,"I'm on it! I'm glad you're interested in exploring our available payment methods. To view the complete list of payment modalities, you can visit our website and navigate to the ""Payment Options"" or ""Checkout"" page. There, you will find detailed information on the various payment methods we offer, including credit/debit cards, PayPal, bank transfer, Apple Pay, and Google Wallet. Feel free to explore the page and choose the option that best suits your preferences and convenience. If you have any questions or need further assistance, don't hesitate to reach out to our customer support team, who will be more than happy to help.","To view the available payment modalities, I need to know a few more details from you. Could you please provide me with the following information:
+
+* Your Order Number
+* Your Person Name
+
+Once I have this information, I'll be happy to assist you in finding the payment modalities you're interested in.","To view the available payment modalities, please follow these steps:
+
+1. Log in to your account on our website.
+2. Click on the ""Account"" tab at the top of the page.
+3. Select ""Payment Options"" from the dropdown menu.
+4. You will then see a list of available payment modalities. You can view the details of each option by clicking on the corresponding link.
+
+If you are unable to find the information or need assistance with the process, please contact our customer service team for further support.",0.07339743589743589
+18,delivery_period,i need assstance to check how soon can i expect the order,"We understand your eagerness to receive your order and your need for assistance in determining the estimated delivery time. To provide you with accurate information, could you please provide the {{Order Number}}? With this information, we can check the status of your order and give you an estimated delivery time. Your patience is greatly appreciated as we work on resolving your query.","I'm happy to help you with that. I'm not aware of your specific order, but I can guide you through the process.
+
+To provide you with an estimate of when you can expect your order to arrive, I'll need to know a few more details. Could you please provide me with the following information:
+
+* The order number of your specific order
+* The shipping address you'd like to track to
+* The shipping method you'd like to track to (e.g., standard, express, or economy)
+
+Once I have this information, I can provide you with a more accurate estimate of when your order will arrive.","I'd be happy to help you with that. To provide you with the most accurate information, I'll need to know a few more details from you. Could you please provide me with the following information:
+
+* Your order number (if you have one)
+* The name of the product or service you're ordering
+* The date you placed the order (to give me a specific timeframe)
+
+Once I have this information, I can try to provide you with an estimated delivery date for your order.",0.06586634653861542
+54,track_refund,can you show me the current status of my refund?,Assuredly! I completely understand your eagerness to know the current status of your refund. Let me quickly check that for you. Please bear with me for a moment while I gather the information. Thank you for your patience and I'll provide you with the most up-to-date details on your refund shortly.,"I'm happy to help you with that. However, I need to clarify a few things. As your customer service representative, I don't have direct access to your account or refund status. But I can guide you through the process to get the information you need.
+
+To initiate the process, I'll need to know a few details from you. Could you please provide me with your Order Number or {{Order Number}} and {{Person Name}} (if you'd like to share that information with me)? This will help me to better understand your query and provide you with the most accurate information.
+
+Once I have this information, I can try to provide you with the current status of your refund. If there are any issues or delays, I'll do my best to inform you and keep you updated.","I'm happy to help you with that. However, I need to clarify a few things. As your customer service representative, I don't have access to your account or any personal details. I can only provide you with general information and guidance.
+
+To get the current status of your refund, I recommend the following steps:
+
+1. Please check your email or the website's refund section for the most up-to-date information.
+2. If you're still unsure, you can contact our customer support team directly, and we'll be happy to assist you.
+
+Once we have the necessary information, we should be able to provide you with a clear and concise update on the status of your refund.",0.05555228276877763
+11,check_payment_methods,"I want to see what damn payment methods are allowed, help me","I'll do my best! I completely understand your eagerness to explore the payment methods we offer. Allow me to guide you through the process and present you with the available options. By doing so, we aim to provide you with a seamless and convenient payment experience. Here is a comprehensive list of our accepted payment methods:
+
+- **Credit/Debit Card:** You can securely make payments using major credit and debit cards like Visa, MasterCard, and American Express.
+- **PayPal:** This widely recognized online payment platform offers a secure way to complete transactions.
+- **Bank Transfer:** You can conveniently make payments through direct bank transfers from your bank account.
+- **Apple Pay:** If you're an Apple user, Apple Pay enables quick and easy payments.
+- **Google Pay:** Google Pay provides a fast and convenient way for Android users to make payments.
+
+If you have any further questions or require assistance with any of these methods, please don't hesitate to let me know. Your satisfaction is our utmost priority, and I'm here to help every step of the way!","I'm here to help. I can provide you with information on the payment methods we accept. However, I need to clarify that I don't have access to your account information or personal details. If you could provide me with your account number or any other identifying information, I would be happy to provide you with a list of the payment methods we accept.
+
+Please note that I'll be providing a general overview, and I won't be able to access any sensitive information about your account. If you have any further questions or concerns, feel free to ask.","I'm here to help. I can provide you with information on the payment methods we accept. However, I need to clarify that I don't have access to your account or payment history. If you're having trouble with a payment method, I recommend contacting our customer service team directly.
+
+To provide you with a general overview, we accept the following payment methods:
+
+- Credit Cards (Visa, Mastercard, Amex, etc.)
+- Debit Cards
+- PayPal
+- Mobile Payments (e.g., Apple Pay, Google Pay)
+- Bank Transfers
+
+If you're having trouble with a specific payment method, I can try to assist you by providing more information or guidance. Please let me know how I can further help.",0.04546246732229553

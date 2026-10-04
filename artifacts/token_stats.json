@@ -1,0 +1,51 @@
+{
+  "tokenizer": "meta-llama/Llama-3.2-1B-Instruct",
+  "vocab_size": 128000,
+  "instruction_tokens": {
+    "mean": 10.005333333333333,
+    "p95": 15.0,
+    "max": 22
+  },
+  "response_tokens": {
+    "mean": 124.582,
+    "p95": 261.04999999999995,
+    "max": 453
+  },
+  "full_sequence_tokens": {
+    "mean": 218.58733333333333,
+    "p95": 355.14999999999986,
+    "p99": 461.01,
+    "max": 544
+  },
+  "max_len_chosen": 464,
+  "max_new_tokens_chosen": 280,
+  "pct_truncated_at_max_len": 0.8,
+  "tokens_per_word_response": 1.2275056162062035,
+  "example": {
+    "text": "I need to cancel order {{Order Number}} and get a refund, please.",
+    "tokens": [
+      "I",
+      "Ġneed",
+      "Ġto",
+      "Ġcancel",
+      "Ġorder",
+      "Ġ{{",
+      "Order",
+      "ĠNumber",
+      "}}",
+      "Ġand",
+      "Ġget",
+      "Ġa",
+      "Ġrefund",
+      ",",
+      "Ġplease",
+      "."
+    ]
+  },
+  "embedding_silhouette_by_intent": 0.051175668835639954,
+  "embedding_pca_variance_explained": [
+    0.17049208283424377,
+    0.083561010658741
+  ],
+  "embedding_n_points": 1080
+}

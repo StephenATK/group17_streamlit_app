@@ -1,0 +1,1098 @@
+{
+  "n_rows": 24274,
+  "n_intents": 27,
+  "n_categories": 11,
+  "category_counts": {
+    "ACCOUNT": 5358,
+    "ORDER": 3067,
+    "REFUND": 2577,
+    "FEEDBACK": 1990,
+    "PAYMENT": 1986,
+    "CONTACT": 1966,
+    "SHIPPING": 1951,
+    "INVOICE": 1801,
+    "DELIVERY": 1645,
+    "SUBSCRIPTION": 992,
+    "CANCEL": 941
+  },
+  "intent_counts": {
+    "complaint": 997,
+    "check_payment_methods": 993,
+    "payment_issue": 993,
+    "review": 993,
+    "place_order": 992,
+    "newsletter_subscription": 992,
+    "registration_problems": 992,
+    "set_up_shipping_address": 990,
+    "delivery_period": 990,
+    "recover_password": 988,
+    "contact_customer_service": 987,
+    "contact_human_agent": 979,
+    "check_refund_policy": 974,
+    "change_shipping_address": 961,
+    "check_cancellation_fee": 941,
+    "check_invoice": 913,
+    "get_refund": 911,
+    "delete_account": 901,
+    "get_invoice": 888,
+    "create_account": 875,
+    "change_order": 856,
+    "switch_account": 836,
+    "track_order": 783,
+    "edit_account": 766,
+    "track_refund": 692,
+    "delivery_options": 655,
+    "cancel_order": 436
+  },
+  "intent_to_category": {
+    "cancel_order": "ORDER",
+    "change_order": "ORDER",
+    "change_shipping_address": "SHIPPING",
+    "check_cancellation_fee": "CANCEL",
+    "check_invoice": "INVOICE",
+    "check_payment_methods": "PAYMENT",
+    "check_refund_policy": "REFUND",
+    "complaint": "FEEDBACK",
+    "contact_customer_service": "CONTACT",
+    "contact_human_agent": "CONTACT",
+    "create_account": "ACCOUNT",
+    "delete_account": "ACCOUNT",
+    "delivery_options": "DELIVERY",
+    "delivery_period": "DELIVERY",
+    "edit_account": "ACCOUNT",
+    "get_invoice": "INVOICE",
+    "get_refund": "REFUND",
+    "newsletter_subscription": "SUBSCRIPTION",
+    "payment_issue": "PAYMENT",
+    "place_order": "ORDER",
+    "recover_password": "ACCOUNT",
+    "registration_problems": "ACCOUNT",
+    "review": "FEEDBACK",
+    "set_up_shipping_address": "SHIPPING",
+    "switch_account": "ACCOUNT",
+    "track_order": "ORDER",
+    "track_refund": "REFUND"
+  },
+  "len_words": {
+    "instruction": {
+      "mean": 8.473634341270495,
+      "median": 8.0,
+      "p95": 13.0,
+      "min": 1.0,
+      "max": 16.0
+    },
+    "response": {
+      "mean": 100.62115844113043,
+      "median": 88.0,
+      "p95": 195.0,
+      "min": 9.0,
+      "max": 400.0
+    }
+  },
+  "len_hist": {
+    "instruction": {
+      "bins": [
+        0.0,
+        0.4666666666666667,
+        0.9333333333333333,
+        1.4,
+        1.8666666666666667,
+        2.3333333333333335,
+        2.8,
+        3.2666666666666666,
+        3.7333333333333334,
+        4.2,
+        4.666666666666667,
+        5.133333333333334,
+        5.6,
+        6.066666666666666,
+        6.533333333333333,
+        7.0,
+        7.466666666666667,
+        7.933333333333334,
+        8.4,
+        8.866666666666667,
+        9.333333333333334,
+        9.8,
+        10.266666666666667,
+        10.733333333333334,
+        11.2,
+        11.666666666666666,
+        12.133333333333333,
+        12.6,
+        13.066666666666666,
+        13.533333333333333,
+        14.0
+      ],
+      "counts": [
+        0,
+        0,
+        17,
+        0,
+        315,
+        0,
+        525,
+        0,
+        855,
+        0,
+        1517,
+        0,
+        2204,
+        0,
+        0,
+        3163,
+        0,
+        3609,
+        0,
+        3431,
+        0,
+        2900,
+        0,
+        2429,
+        0,
+        1855,
+        0,
+        1069,
+        0,
+        385
+      ]
+    },
+    "response": {
+      "bins": [
+        0.0,
+        9.9,
+        19.8,
+        29.700000000000003,
+        39.6,
+        49.5,
+        59.400000000000006,
+        69.3,
+        79.2,
+        89.10000000000001,
+        99.0,
+        108.9,
+        118.80000000000001,
+        128.70000000000002,
+        138.6,
+        148.5,
+        158.4,
+        168.3,
+        178.20000000000002,
+        188.1,
+        198.0,
+        207.9,
+        217.8,
+        227.70000000000002,
+        237.60000000000002,
+        247.5,
+        257.40000000000003,
+        267.3,
+        277.2,
+        287.1,
+        297.0
+      ],
+      "counts": [
+        2,
+        60,
+        264,
+        574,
+        744,
+        1693,
+        2623,
+        3247,
+        3326,
+        2480,
+        1920,
+        1445,
+        1163,
+        903,
+        781,
+        662,
+        480,
+        344,
+        210,
+        180,
+        110,
+        89,
+        45,
+        61,
+        58,
+        100,
+        140,
+        131,
+        106,
+        333
+      ]
+    }
+  },
+  "placeholder_top": [
+    [
+      "Order Number",
+      5665
+    ],
+    [
+      "Account Type",
+      4250
+    ],
+    [
+      "Account Category",
+      3028
+    ],
+    [
+      "Customer Support Phone Number",
+      2038
+    ],
+    [
+      "Website URL",
+      1943
+    ],
+    [
+      "Customer Support Hours",
+      1764
+    ],
+    [
+      "Invoice Number",
+      1492
+    ],
+    [
+      "Online Order Interaction",
+      1255
+    ],
+    [
+      "Person Name",
+      1019
+    ],
+    [
+      "Tracking Number",
+      887
+    ],
+    [
+      "Date Range",
+      780
+    ],
+    [
+      "Client Last Name",
+      560
+    ],
+    [
+      "Salutation",
+      552
+    ],
+    [
+      "Online Company Portal Info",
+      535
+    ],
+    [
+      "Settings",
+      529
+    ],
+    [
+      "Refund Amount",
+      443
+    ],
+    [
+      "Profile",
+      406
+    ],
+    [
+      "Login Page URL",
+      396
+    ],
+    [
+      "Account Change",
+      383
+    ],
+    [
+      "Upgrade Account",
+      368
+    ],
+    [
+      "Store Location",
+      313
+    ],
+    [
+      "Currency Symbol",
+      283
+    ],
+    [
+      "Forgot Password",
+      219
+    ],
+    [
+      "Customer Support Email",
+      172
+    ],
+    [
+      "Delivery Country",
+      156
+    ]
+  ],
+  "placeholder_inventory": [
+    "Access Key",
+    "Access Key Recovery",
+    "Access Key Reset Page URL",
+    "Access Key Retrieval",
+    "Account",
+    "Account Access Key Reset",
+    "Account Category",
+    "Account Change",
+    "Account Closure Process",
+    "Account Closure Timeframe",
+    "Account Details",
+    "Account ID",
+    "Account Key Recovery",
+    "Account Management",
+    "Account Name",
+    "Account Number",
+    "Account Page",
+    "Account Recovery",
+    "Account Recovery Page",
+    "Account Recovery Page URL",
+    "Account Security",
+    "Account Type",
+    "Account Type Switch",
+    "Account Upgrade",
+    "Add a New Address",
+    "Basic",
+    "Basic Account",
+    "Billing",
+    "Billing Category",
+    "Billing History",
+    "Business Hours",
+    "Business Name Anonymized",
+    "Cancel Purchase",
+    "Cancellation Policy",
+    "Cancellation Refund Time",
+    "Case Number",
+    "Change Access Key",
+    "Change Account",
+    "Change Key",
+    "Change PIN",
+    "Change Password",
+    "Change Profile",
+    "Change User",
+    "City 1",
+    "City 2",
+    "City 3",
+    "Claims Contact Number",
+    "Claims Department",
+    "Claims Website URL",
+    "Client First Name",
+    "Client Full Name",
+    "Client Last Name",
+    "Client Name",
+    "Closing Time",
+    "Company",
+    "Company Account",
+    "Company Name",
+    "Company Phone Number",
+    "Company Representative Name",
+    "Company Support Channels",
+    "Company Support Page URL",
+    "CompanyName",
+    "Compensation ID",
+    "Compensation Identifier",
+    "Compensation Type",
+    "Complaint Email Address",
+    "Complaint Hotline Number",
+    "Completion steps",
+    "Confirm",
+    "Consumer Complaint Email Address",
+    "Contact Channel",
+    "Contact Method",
+    "Contact Page URL",
+    "Contact Us",
+    "Country",
+    "Country List",
+    "Create Account",
+    "Create a Secondary Address",
+    "Currency Symbol",
+    "Customer Assistance Email",
+    "Customer Assistance Email Address",
+    "Customer Assistance Hours",
+    "Customer Assistance Phone Number",
+    "Customer Claims Email Address",
+    "Customer ID",
+    "Customer Service Email",
+    "Customer Service Email Address",
+    "Customer Service Hours",
+    "Customer Service Toll-Free Number",
+    "Customer Support Closing Time",
+    "Customer Support Contact Number",
+    "Customer Support Days",
+    "Customer Support Email",
+    "Customer Support End Time",
+    "Customer Support Hotline",
+    "Customer Support Hours",
+    "Customer Support Live Chat URL",
+    "Customer Support Opening Time",
+    "Customer Support Phone Number",
+    "Customer Support Start Time",
+    "Customer Support Team",
+    "Customer Support Team Name",
+    "Customer Support Ticket Number",
+    "Customer Support Toll-Free Number",
+    "Customer Support Website",
+    "Cut Off Time",
+    "Dashboard",
+    "Date",
+    "Date Range",
+    "Date of the Bill",
+    "Date of the Invoice",
+    "Delivery City",
+    "Delivery Country",
+    "Delivery Time",
+    "Destination",
+    "Downgrade",
+    "Duplicate Charges Refund Time",
+    "E-commerce Platform 1",
+    "E-commerce Platform 2",
+    "E-commerce Platform Names",
+    "Edit PIN",
+    "Email Address",
+    "Estimated Delivery Time",
+    "Event Cancellation Refund Time",
+    "Expedited Shipping Days",
+    "Expedited Shipping Time",
+    "Explanation of Feature 1",
+    "Explanation of Feature 2",
+    "Explanation of Feature 3",
+    "Express Delivery Time",
+    "Express Shipping Days",
+    "Express Shipping Time",
+    "Feature 1",
+    "Feature 2",
+    "Feature 3",
+    "Feedback Email",
+    "Feedback Email Address",
+    "Fifth Step",
+    "First Step",
+    "Forgot Access Key",
+    "Forgot Account Access Key",
+    "Forgot Account Key",
+    "Forgot Key",
+    "Forgot PIN",
+    "Forgot PIN Code",
+    "Forgot PIN code",
+    "Forgot Password",
+    "Forgot Pin",
+    "Forgot Pin Code",
+    "Forgot Profile Access Key",
+    "Forgot Profile Key",
+    "Forgot User Access Key",
+    "Forgot User Account Key",
+    "Forgot User Key",
+    "Forgot User Profile Key",
+    "Forgot Your Access Key",
+    "Fourth Step",
+    "Free Customer Support Number",
+    "Full Name",
+    "Help Center",
+    "Help Center URL",
+    "Invoice Name",
+    "Invoice Number",
+    "Key Management",
+    "Key Recovery Page URL",
+    "Live Chat",
+    "Live Chat Feature",
+    "Live Chat Support",
+    "Login Page",
+    "Login Page URL",
+    "Login URL",
+    "Login page URL",
+    "Login steps",
+    "Lost Key",
+    "Manage PIN",
+    "Manage Subscription",
+    "Max Delivery Time",
+    "Membership Type",
+    "Min Delivery Time",
+    "Money Amount",
+    "Month",
+    "My Account",
+    "Navigation steps",
+    "Non-receipt of Goods Refund Time",
+    "Number of Days",
+    "Online Company Portal Info",
+    "Online Customer Support Channel",
+    "Online Marketplace",
+    "Online Order Interaction",
+    "Online Store",
+    "Opening Time",
+    "Order Number",
+    "Order Status",
+    "Order Tracking",
+    "Order Tracking Method",
+    "Order/Claim Number",
+    "Order/Claim/Compensation",
+    "Order/Invoice Number",
+    "Order/Refund/Case Number",
+    "Order/Refund/Transaction",
+    "Order/Transaction ID",
+    "Order/Transaction/Reference Number",
+    "Order/Transaction/Reimbursement",
+    "PIN",
+    "PIN Code",
+    "PIN Code Management",
+    "PIN Code Recovery",
+    "PIN Code Reset",
+    "PIN Code Restoration",
+    "PIN Code Retrieval",
+    "PIN Management",
+    "PIN Recovery",
+    "PIN Recovery Page URL",
+    "PIN Reset",
+    "PIN Reset Page URL",
+    "PIN Retrieval",
+    "PIN Retrieval Page URL",
+    "PIN Settings",
+    "PIN code",
+    "Password",
+    "Password Management",
+    "Password Recovery",
+    "Password Recovery Page",
+    "Password Recovery Page URL",
+    "Password Reset",
+    "Password Reset Page",
+    "Password Reset Page URL",
+    "Password and Security",
+    "Payment Issue Email",
+    "Payment Issue Phone Number",
+    "Person Name",
+    "Pin Code Settings",
+    "Platform Login URL",
+    "Platform URL",
+    "Privacy",
+    "Product Category",
+    "Product Feedback Email",
+    "Product Reviews Email",
+    "Product/Service Defect Refund Time",
+    "Product/Service Name",
+    "Profile",
+    "Profile PIN Recovery",
+    "Profile Recovery",
+    "Profile Recovery Page",
+    "Profile Recovery Page URL",
+    "Profile Security",
+    "Profile Settings",
+    "Profile Type",
+    "Purchase Details",
+    "Purchase History",
+    "Purchase Status",
+    "Purpose of the Features",
+    "Rebate ID",
+    "Rebate Identifier",
+    "Rebate Number",
+    "Rebate Tracking Number",
+    "Recover Access Key",
+    "Recover Key",
+    "Recover PIN",
+    "Reference Number",
+    "Refund Amount",
+    "Refund Helpline Number",
+    "Refund Processing Time",
+    "Registration Support Phone Number",
+    "Regular Profile",
+    "Reimbursement ID",
+    "Reimbursement Request Number",
+    "Remove",
+    "Reset",
+    "Reset Access Key",
+    "Reset Account Key",
+    "Reset Key",
+    "Reset PIN",
+    "Reset Password",
+    "Reset Pin Code",
+    "Reset User Key",
+    "Restitution ID",
+    "Restore Access Key",
+    "Restore PIN Code",
+    "Restore Password",
+    "Restore User Access Key",
+    "Restore User Key",
+    "Retail Stores",
+    "Retrieve Account Key",
+    "Retrieve Account PIN",
+    "Retrieve Key",
+    "Retrieve PIN",
+    "Retrieve PIN Code",
+    "Retrieve Profile Key",
+    "Retrieve User Account Key",
+    "Retrieve User Key",
+    "Review Platform",
+    "Review Platform 1",
+    "Review Platform 2",
+    "Salutation",
+    "Same-Day Order Time",
+    "Save",
+    "Second Step",
+    "Security",
+    "Security & Privacy",
+    "Security Settings",
+    "Security and Privacy",
+    "Settings",
+    "Shipment Tracking Number",
+    "Shipping Address",
+    "Shipping Addresses",
+    "Shipping Cut-off Time",
+    "Shipping Method",
+    "Sign Up",
+    "Social Media Handles",
+    "Social Media Platform",
+    "Standard Shipping Days",
+    "Standard Shipping Time",
+    "Stolen User Key",
+    "Store Address",
+    "Store Location",
+    "Store Pickup Time",
+    "Submit",
+    "Support Channel",
+    "Support Channel 1",
+    "Support Channel 2",
+    "Support Hours",
+    "Support Page URL",
+    "Support Phone Number",
+    "Switch Plan",
+    "Switch User",
+    "Switching option",
+    "Third Step",
+    "Timeframe",
+    "Toll-Free Number",
+    "Track Order",
+    "Track Reimbursement",
+    "Tracking Information",
+    "Tracking Number",
+    "Tracking Page",
+    "Unauthorized Charges Refund Time",
+    "Update Account",
+    "Update Profile",
+    "Upgrade Account",
+    "Upgrade Account Type",
+    "User Account Recovery",
+    "User Account Settings",
+    "User Key Retrieval",
+    "User Key Retrieval Page URL",
+    "User Management",
+    "User Profile",
+    "User Profile Page URL",
+    "User Profile Settings",
+    "User Settings",
+    "Username",
+    "Website URL",
+    "Working Hours",
+    "X-day/money back guarantee period",
+    "Year",
+    "Zip Code",
+    "additional details",
+    "contact_method",
+    "mention the different contact options available",
+    "month",
+    "number of days",
+    "order number",
+    "proceed to our website and click on the 'Contact Us' button / dial our customer support number / reach out to our live chat support",
+    "provide step-by-step instructions",
+    "the reason for your call",
+    "the specific topic you need assistance with",
+    "tracking number",
+    "year",
+    "your issue"
+  ],
+  "pct_instructions_with_slot": 17.533163055120703,
+  "pct_responses_with_slot": 43.40034604927083,
+  "top_bigrams": {
+    "instruction": [
+      [
+        "know how",
+        1272
+      ],
+      [
+        "need help",
+        1267
+      ],
+      [
+        "know what",
+        1140
+      ],
+      [
+        "want help",
+        1131
+      ],
+      [
+        "need assistance",
+        1011
+      ],
+      [
+        "want assistance",
+        928
+      ],
+      [
+        "don't know",
+        810
+      ],
+      [
+        "shipping address",
+        754
+      ],
+      [
+        "delivery address",
+        716
+      ],
+      [
+        "what need",
+        584
+      ],
+      [
+        "see what",
+        532
+      ],
+      [
+        "dont know",
+        501
+      ],
+      [
+        "sign up",
+        483
+      ],
+      [
+        "help see",
+        481
+      ],
+      [
+        "information about",
+        409
+      ],
+      [
+        "check what",
+        385
+      ],
+      [
+        "standard account",
+        370
+      ],
+      [
+        "help check",
+        364
+      ],
+      [
+        "customer support",
+        360
+      ],
+      [
+        "how soon",
+        350
+      ]
+    ],
+    "response": [
+      [
+        "i'm here",
+        11052
+      ],
+      [
+        "reach out",
+        5888
+      ],
+      [
+        "guide through",
+        5566
+      ],
+      [
+        "customer support",
+        5458
+      ],
+      [
+        "here assist",
+        5284
+      ],
+      [
+        "support team",
+        5108
+      ],
+      [
+        "let know",
+        5001
+      ],
+      [
+        "rest assured",
+        4845
+      ],
+      [
+        "here help",
+        4833
+      ],
+      [
+        "encounter any",
+        4541
+      ],
+      [
+        "through process",
+        4425
+      ],
+      [
+        "feel free",
+        4265
+      ],
+      [
+        "don't hesitate",
+        3978
+      ],
+      [
+        "details about",
+        3579
+      ],
+      [
+        "every step",
+        3457
+      ],
+      [
+        "any difficulties",
+        3405
+      ],
+      [
+        "step way",
+        3367
+      ],
+      [
+        "we're here",
+        3025
+      ],
+      [
+        "further questions",
+        2932
+      ],
+      [
+        "more details",
+        2928
+      ]
+    ]
+  },
+  "top_words": {
+    "instruction": [
+      [
+        "help",
+        6019
+      ],
+      [
+        "how",
+        4071
+      ],
+      [
+        "need",
+        3856
+      ],
+      [
+        "account",
+        3027
+      ],
+      [
+        "what",
+        3020
+      ],
+      [
+        "want",
+        2943
+      ],
+      [
+        "assistance",
+        2815
+      ],
+      [
+        "know",
+        2559
+      ],
+      [
+        "see",
+        2447
+      ],
+      [
+        "check",
+        1992
+      ],
+      [
+        "address",
+        1930
+      ],
+      [
+        "payment",
+        1597
+      ],
+      [
+        "order",
+        1374
+      ],
+      [
+        "customer",
+        1216
+      ],
+      [
+        "purchase",
+        1128
+      ],
+      [
+        "about",
+        1124
+      ],
+      [
+        "where",
+        1115
+      ],
+      [
+        "delivery",
+        1063
+      ],
+      [
+        "shipping",
+        1012
+      ],
+      [
+        "newsletter",
+        933
+      ],
+      [
+        "don't",
+        869
+      ],
+      [
+        "some",
+        785
+      ],
+      [
+        "get",
+        732
+      ],
+      [
+        "bill",
+        710
+      ],
+      [
+        "money",
+        706
+      ]
+    ],
+    "response": [
+      [
+        "any",
+        23380
+      ],
+      [
+        "account",
+        21750
+      ],
+      [
+        "provide",
+        21369
+      ],
+      [
+        "here",
+        17876
+      ],
+      [
+        "assist",
+        17275
+      ],
+      [
+        "i'm",
+        16670
+      ],
+      [
+        "process",
+        15477
+      ],
+      [
+        "information",
+        15329
+      ],
+      [
+        "details",
+        13187
+      ],
+      [
+        "address",
+        11755
+      ],
+      [
+        "help",
+        11178
+      ],
+      [
+        "need",
+        10561
+      ],
+      [
+        "assistance",
+        10370
+      ],
+      [
+        "about",
+        10303
+      ],
+      [
+        "specific",
+        10014
+      ],
+      [
+        "support",
+        9868
+      ],
+      [
+        "through",
+        9715
+      ],
+      [
+        "out",
+        9580
+      ],
+      [
+        "ensure",
+        9403
+      ],
+      [
+        "further",
+        9312
+      ],
+      [
+        "you're",
+        9032
+      ],
+      [
+        "team",
+        8624
+      ],
+      [
+        "understand",
+        8584
+      ],
+      [
+        "customer",
+        7930
+      ],
+      [
+        "questions",
+        7653
+      ]
+    ]
+  },
+  "flag_counts": {
+    "B": 24274,
+    "L": 22236,
+    "Q": 8293,
+    "I": 7362,
+    "Z": 4726,
+    "M": 4619,
+    "C": 2622,
+    "E": 1779,
+    "K": 1471,
+    "P": 1301,
+    "W": 1280,
+    "N": 394,
+    "S": 80,
+    "V": 77
+  },
+  "splits": {
+    "train": 19418,
+    "val": 2428,
+    "test": 2428,
+    "used_train": 6000,
+    "used_val": 300,
+    "used_test": 300
+  }
+}

@@ -1,0 +1,99 @@
+id,instruction,resp_finetuned,unsupported_detail_finetuned
+37,what do I have to do to speak to customer assistance?,"To speak to customer assistance, you can follow these steps:
+
+1. **Visit our website**: Go to our website ([www.yourcompany.com](http://www.yourcompany.com)) and click on the ""Contact Us"" or ""Help"" button.
+2. **Fill out a contact form**: You can fill out a contact form on our website, providing us with your order number, customer name, and any relevant details.
+3. **Call our customer service number**: You can call our customer service number at 1-800-{{Order Number}} (or 1-800-{{Person Name}}) to speak with a representative.
+4. **Email us**: You can also email us at [{{Customer Service Email}}](mailto:{{Customer Service Email}). Please include your order number and any relevant details.
+
+Once you've contacted us, a customer assistance representative will be in touch with you to discuss your issue and provide a solution.",url:www.yourcompany.com](http://www.yourcompany.com
+124,is it possible to see what shipping methods you offer?,"I'd be happy to help you with that. We offer the following shipping methods:
+
+- Standard Shipping: This is our most affordable option, with delivery within 3-7 business days.
+- Express Shipping: If you need your order quickly, this is the fastest option, with delivery within 2-3 business days.
+- Free Shipping: We offer free standard shipping on orders over $50.
+
+If you have any specific questions or concerns about your order, feel free to let me know and I'll be happy to assist you.",money:$50
+142,what do i have to do to request restitutions of money,"To request restitution of money, you can follow these steps:
+
+1. **Contact the seller or merchant**: Reach out to the seller or merchant where you purchased the item(s) and explain your situation. Be clear and concise about what you're asking for - restitution of money.
+
+2. **Provide proof of purchase**: Share any proof of purchase, such as receipts, invoices, or bank statements, to support your claim.
+
+3. **Explain the situation**: Describe the situation in detail, including the date, time, and location of the purchase. Be honest and transparent about what happened.
+
+4. **Follow up**: If you don't receive a response or a resolution, follow up with a polite and concise email or message to inquire about the status of your request.
+
+5. **Consider filing a complaint**: If you're not satisfied with the seller's response, you can file a complaint with the relevant authorities, such as the Federal Trade Commission (FTC) in the United States.
+
+Some examples of what you can say in your request for restitution:
+
+- ""I purchased an item from [Seller's Name] on [Date] for $100. I believe I should be refunded the full amount, as I never received the item.""
+- ""I have receipts and invoices to prove that I purchased the item on [Date] for $100. I would like to request a refund of $100",money:$100; money:$100; money:$100
+155,do you have a method to submit a comment for your company?,"I'd be happy to help you submit a comment for our company. We have a simple and secure way to do so. Please find the steps below:
+
+1. Go to our website at [www.yourcompany.com](http://www.yourcompany.com).
+2. Click on the ""Contact Us"" button at the top right corner of the page.
+3. Select ""Leave a comment"" from the dropdown menu.
+4. Fill in the required information, including your name, email address, and a brief comment.
+5. Review your comment carefully before submitting it.
+
+Alternatively, you can also submit your comment through our mobile app or by sending an email to our customer service team at [customerservice@yourcompany.com](mailto:customerservice@yourcompany.com).
+
+If you have any trouble accessing our website or submitting a comment, please don't hesitate to contact us. We're here to help.",url:www.yourcompany.com](http://www.yourcompany.com; email:customerservice@yourcompany.com; email:customerservice@yourcompany.com
+158,where could I inform of bloody issues with payment?,"I'm here to help. If you're experiencing issues with payment, I'd recommend reaching out to our customer service team. You can contact us through the following channels:
+
+1. Phone: Call us at 1-800-{{Order Number}} (1-800-800-624) to speak with a representative.
+2. Email: Send an email to [{{Order Service Email}}](mailto:{{Order Service Email}) with a clear description of your issue.
+3. Live Chat: If you have any questions or concerns, you can try our live chat feature on our website.
+
+Please provide me with your Order Number or the Order Number of the issue you're experiencing, and I'll do my best to assist you.",phone:1-800-800-624
+163,are there early termination penalties,"I'd be happy to help you with that. Regarding early termination penalties, I've found that they are available in some cases. However, the specifics can vary depending on the type of contract, agreement, or service you're using.
+
+Typically, early termination penalties are more common for services like telecommunications, software, or other subscription-based products. These penalties can range from a few hundred to several thousand dollars, depending on the terms of your agreement.
+
+To give you a better idea, here are some general guidelines:
+
+- Early termination fees for services like phone or internet plans: $500-$2,000
+- Early termination fees for software or subscription-based products: $1,000-$10,000
+- Early termination fees for other services, like insurance or membership programs: $500-$5,000
+
+Keep in mind that these are rough estimates, and the actual cost of an early termination penalty can vary widely depending on the specifics of your agreement.
+
+If you're concerned about an early termination penalty, I recommend reaching out to the provider or service you're using for more information. They should be able to provide you with a clear understanding of what's included and what's not, as well as any potential penalties or fees associated with terminating your contract early.
+
+Would you like me to look into this further for you?","money:$500; money:$2,000; money:$1,000; money:$10,000; money:$500; money:$5,000"
+188,how to see at what time i can reach customer support,"To help you find the customer support contact information, I need to know a few more details from you. Could you please provide me with the following information:
+
+1. Your Order Number (if you have it)
+2. Your Person Name (if you have it)
+3. The date you're inquiring about (to help me narrow down the options)
+
+Once I have this information, I can try to find the contact details for you. Alternatively, I can also suggest some options to get in touch with our customer support team:
+
+- You can visit our website and use our contact form.
+- You can call us directly at 1-800-CONTACT-US (1-800-682-3878)
+- You can email us at [support@ourcompany.com](mailto:support@ourcompany.com)
+
+Please let me know if there's anything else I can help you with.",email:support@ourcompany.com; email:support@ourcompany.com; phone:1-800-682-3878
+228,how to inform of a payment error?,"To inform about a payment error, you can follow these steps:
+
+1. **Contact the merchant**: Reach out to the merchant's customer service department via phone, email, or live chat. Provide your Order Number or Customer Name to identify the issue.
+2. **Explain the situation**: Clearly explain the payment error you're experiencing, including the date, time, and amount involved. Be as detailed as possible to help the merchant understand the issue.
+3. **Provide proof of payment**: If you have made payment online or through a mobile app, provide proof of payment, such as a receipt or a screenshot of the payment confirmation.
+4. **Ask about refund or replacement options**: Ask the merchant if they can offer a refund or replacement for the incorrect payment.
+
+Example of a polite and concise message:
+
+""Hello, I'm {{Order Number}} {{Person Name}}. I'm experiencing a payment error with my recent purchase. I've made payment online on [Date] for $100. The merchant has informed me that the payment was declined. Can you please assist me with a refund or replacement option? I'd appreciate it if you could look into this matter urgently.""
+
+By following these steps, you should be able to resolve the payment error and get a refund or replacement as soon as possible.",money:$100
+290,where can i lodge a customer claim,"I'm happy to help you with that. You can lodge a customer claim at our Customer Service Centre. To find the nearest location, please visit our website and use the 'Contact Us' or 'Help' section. Alternatively, you can contact us directly via phone or email to find the information you need.
+
+If you're looking for a physical location, you can visit our Customer Service Centre at the following address:
+
+Customer Service Centre
+123 Main Street
+Anytown, USA 12345
+
+Please note that this is a placeholder address and the actual address may vary. If you could provide me with your Order Number or {{Order Number}}, I would be happy to provide you with more specific information.",number:12345

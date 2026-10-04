@@ -1,0 +1,74 @@
+id,intent,instruction,reference,resp_finetuned,rougeL_finetuned
+102,check_cancellation_fee,is it possible to see the early termination charge?,"Positively! You can easily see the early termination charge by accessing your account and navigating to the ""Fees and Charges"" or ""Cancellation Policy"" section.","I'd be happy to help you with that. To provide you with the information you're looking for, I need to know a few more details. Could you please provide me with your Order Number or {{Order Number}} and {{Person Name}} so I can look into it for you?",0.10810810810810811
+221,switch_account,I want to change to the premium account,"Great choice! I hear you loud and clear, and I'm here to assist you in seamlessly transitioning to our premium account. Together, let's unlock a world of exclusive benefits and enhanced features.
+
+1. **Access Your Account:** Begin by logging into our platform with your existing credentials.
+2. **Navigate to Account Settings:** Once you're in, locate the '{{Settings}}' or '{{Profile}}' section.
+3. **Upgrade Options:** Within this section, keep an eye out for an option that mentions '{{Upgrade Account}}' or '{{Account Change}}'.
+4. **Select {{Account Category}} Account:** From the available account types, choose the '{{Account Type}}' to initiate the switch.
+5. **Follow the Prompts:** Pay close attention to the on-screen instructions to complete the upgrade process successfully.
+
+Should you encounter any challenges along the way or if you have any other queries, feel free to reach out. We value your decision to upgrade, and we're committed to making this transition as smooth as possible. Prepare yourself for an enhanced experience with our premium account!","I'd be happy to help you with your request. To proceed, I need to confirm that you have a subscription or a membership with our company. Could you please provide me with your Order Number or {{Order Number}} so I can assist you with the change?",0.11214953271028036
+134,switch_account,"I have to change to the platinum account, how do I do it?","I'll take care of it! I'm thrilled to assist you in making the transition to our prestigious {{Account Category}} account. Together, we'll explore the seamless steps towards a truly elevated experience:
+
+1. **Access Your Account:** Begin by logging into our platform, using your existing login credentials.
+2. **Account Settings:** Once you're logged in, navigate to your account settings by clicking on your profile icon or username.
+3. **Upgrade Options:** Within the account settings, locate the section specifically related to account upgrades or premium memberships.
+4. **Upgrade to {{Account Category}}:** Look out for the option to switch or upgrade to the {{Account Category}} account type.
+5. **Confirmation and Benefits:** Follow the on-screen prompts to confirm your decision and embrace the exceptional benefits that come with your new {{Account Category}} account.
+
+If you encounter any difficulties or have further questions along the way, please don't hesitate to reach out. I'm here to support you throughout this exciting upgrade. Enjoy exploring the remarkable features of our {{Account Category}} account!""","To upgrade to the Platinum account, I need to know a few more details from you. Could you please provide me with your Order Number or {{Order Number}} and {{Person Name}} so I can assist you with the upgrade process?",0.11267605633802814
+78,check_refund_policy,i need assistance to checck ur money back policy,"Sure! I understand that you would like some guidance on our money back policy. Our company has a comprehensive refund policy in place to ensure the satisfaction of our valued customers like you. Here are some key points:
+
+1. **Timeframe for Refunds:** We typically offer refunds within 30 days of the purchase date. However, some products or services may have specific refund periods, so it's important to review the terms and conditions for each item.
+
+2. **Conditions for Refunds:** To request a refund, the product or service should be in its original condition and packaging, with no signs of wear or damage. Additionally, any accessories, manuals, or promotional items should be returned as well.
+
+3. **Refund Process:** If you meet the refund criteria, you can initiate the refund process by contacting our customer support team. They will guide you through the necessary steps to ensure a smooth and hassle-free refund.
+
+4. **Refund Methods:** Depending on the original payment method, refunds are typically processed back to the original payment source. In some cases, we may offer store credits or gift cards as an alternative refund option.
+
+5. **Exceptions to Refunds:** Certain products or services, such as digital downloads or personalized items, may have specific refund restrictions. It's important to review the product or service details for any exceptions or limitations.
+
+Remember, if you have any specific questions or concerns regarding our money back policy, please provide me with more details so that I can provide you with the most accurate information. Your satisfaction is our priority, and we want to ensure that you have a positive experience with us.
+
+Is there anything else I can assist you with regarding our refund policy?","I'm happy to help you with your money back policy inquiry. To better assist you, I need to know a few more details. Could you please provide me with your Order Number or {{Order Number}} and {{Person Name}} so I can look into your specific case?",0.1148036253776435
+106,delivery_options,I am trying to check what delivery methods are available,"Ah, I see you're interested in exploring the available delivery methods. Let me assist you in finding the information you need.
+
+We offer a range of delivery options to ensure your items reach you conveniently. Here are the available delivery methods:
+
+1. Standard Shipping: This is our standard delivery option, typically arriving within {{Date Range}} business days. It's ideal for non-urgent items.
+2. Expedited Shipping: If you need your items sooner, our expedited shipping option will have them delivered to you in {{Date Range}} business days.
+3. Overnight Shipping: For those urgent needs, we offer overnight shipping, ensuring next business day delivery.
+4. In-Store Pickup: If you prefer to pick up your items personally, we have an in-store pickup option available at our {{Store Location}}.
+
+Of course, delivery times may vary depending on your location and other factors. If you have any specific concerns or questions about our delivery methods, please don't hesitate to ask. I'm here to provide you with the information you need for a smooth and seamless delivery experience.","I'd be happy to help you with that. To better assist you, I need to know a few more details. Could you please provide me with your Order Number or {{Order Number}} and {{Person Name}} so I can look up the delivery options for you?",0.11555555555555555
+104,set_up_shipping_address,I have issues entering a new shipping address,"I've been informed that you're experiencing difficulties while entering a new shipping address, and I'm here to assist you. To resolve this issue, please follow these steps:
+
+1. Log in to your account on our website.
+2. Navigate to the ""Shipping Addresses"" or ""Profile"" section, where you manage your personal information.
+3. Look for the option to ""Add a New Address"" or ""Edit Shipping Addresses"" and select it.
+4. Fill in the required fields with the details of your new shipping address, such as the street address, city, state, and zip code.
+5. Double-check that all the information is accurate and complete.
+6. Save the changes to ensure that your new shipping address is successfully added to your account.
+
+If you're still encountering issues after following these steps, please provide more specific details about the problem you're facing, such as any error messages or unexpected behavior. This will allow us to provide you with more personalized assistance. We apologize for any inconvenience caused and appreciate your patience as we work towards resolving this issue together.",I'm here to help. Can you please tell me your Order Number so I can assist you with setting up a new shipping address?,0.11650485436893201
+48,contact_human_agent,what do I need to do to talk with a person?,"Thank you for getting in touch! 🌟 I understand that you are looking for assistance on how to talk with a person. Our goal is to provide you with the best support possible. To talk with a person, you can reach out to our customer service team through various channels like phone, email, or live chat. Let me know which channel you prefer, so I can guide you accordingly and ensure a seamless connection with one of our dedicated representatives. Your satisfaction is our priority, and we are here to help you every step of the way.","To have a conversation with a person, you'll need to follow these steps:
+
+1. **Start with a greeting**: Begin by saying hello and introducing yourself. This helps establish a friendly tone and sets the stage for the conversation.
+2. **Ask open-ended questions**: Ask questions that encourage the other person to share their thoughts, feelings, or experiences. Avoid yes/no questions, and instead, ask open-ended questions that begin with what, how, or why.
+3. **Listen actively**: Pay close attention to what the other person is saying, and show that you're engaged in the conversation. This means maintaining eye contact, nodding, and summarizing what they've said.
+4. **Be respectful and empathetic**: Be mindful of the other person's feelings and perspectives. Avoid being judgmental, critical, or insensitive, and try to understand their point of view.
+5. **Keep the conversation balanced**: Make sure the conversation is balanced between you and the other person. This means sharing your thoughts and experiences, but also listening actively and responding thoughtfully.
+6. **Avoid interrupting**: Allow the other person to finish speaking before you respond. This helps prevent interruptions and ensures that you're not cutting them off.
+7. **Be patient and flexible**: Conversations can take unexpected turns, and things may not always go as planned. Be patient, flexible, and willing to adapt to",0.1198738170347003
+182,set_up_shipping_address,i have a problem setting a secondary shipping address up,"I apologize for the difficulties you're encountering while setting up a secondary shipping address. Rest assured, I'm here to assist you. To resolve this issue, let's try the following steps:
+
+1. Log in to your account.
+2. Navigate to the 'My Account' or 'Profile' section.
+3. Look for the 'Shipping Addresses' or similar option.
+4. Find the 'Add a New Address' or 'Edit Shipping Address' button, and select it.
+5. Fill in the details of your secondary shipping address in the form provided.
+6. Don't forget to save the changes before exiting.
+
+If the issue persists or if you have any further questions, please feel free to provide more details so that I can offer more personalized assistance.","I'm here to help. To better assist you, could you please provide me with some information about your order? Specifically, could you tell me your Order Number or {{Order Number}} and {{Person Name}}? This will help me to provide you with the most accurate and helpful solution.",0.12941176470588234
