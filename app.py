@@ -164,6 +164,8 @@ h1, h2, h3, .g-display {{ font-family: 'Bricolage Grotesque', 'Segoe UI', system
 .c-who {{ font-size: 0.8rem; font-weight: 600; color: {MUTED}; margin-bottom: 0.25rem; }}
 .c-meta {{ font-size: 0.8rem; color: {MUTED}; margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.3rem 0.5rem; }}
 .c-tag {{ border: 1px solid {LINE}; background: #fff; border-radius: 999px; padding: 0.05rem 0.55rem; }}
+.c-tag.live {{ border-color: #BFE3C9; background: #E8F6EC; color: #1E7A47; font-weight: 600; }}
+.c-status i.off {{ background: #D08A12; }}
 .c-tag.warn {{ border-color: #F2C9C2; background: #FBE9E6; color: {ALERT}; }}
 .c-msg details {{ margin-top: 0.55rem; }}
 .c-msg details summary {{ cursor: pointer; color: {FT}; font-size: 0.85rem; font-weight: 600; }}
@@ -406,6 +408,43 @@ def explain_change(raw, cleaned):
         why.append("line breaks tidied")
     return why or ["character-level normalisation (unicode)"]
 
+
+# ----------------------------------------------------------------------------
+# Live answers from the Hugging Face Space running Barbie (Model 2)
+# ----------------------------------------------------------------------------
+DEFAULT_SPACE = "KwabenaAtk001/barbie-support"
+LIVE_TIMEOUT_S = 90       # a sleeping Space can take a while to wake up
+
+
+def space_id():
+    try:
+        return st.secrets.get("BARBIE_SPACE", DEFAULT_SPACE)
+    except Exception:
+        return DEFAULT_SPACE
+
+
+@st.cache_resource(show_spinner=False)
+def live_client(sid):
+    from gradio_client import Client
+    return Client(sid)
+
+
+def ask_live(q):
+    """Send one message to the Space. Returns (answer, seconds); raises on any failure."""
+    t0 = time.time()
+    client = live_client(space_id())
+    try:
+        job = client.submit(q, api_name="/predict")
+    except Exception:
+        job = client.submit(q, fn_index=0)
+    out = job.result(timeout=LIVE_TIMEOUT_S)
+    if isinstance(out, (list, tuple)):
+        out = out[0] if out else ""
+    out = str(out or "").strip()
+    if not out:
+        raise RuntimeError("empty answer")
+    return out, time.time() - t0
+
 # ----------------------------------------------------------------------------
 # Assistant: chat product over the recorded held-out answers
 # ----------------------------------------------------------------------------
@@ -462,13 +501,31 @@ def answer_html(gen, summ, turn, model):
 def render_turn(gen, summ, turn):
     if turn["role"] == "user":
         return user_html(turn["text"])
+    if turn["kind"] == "live":
+        flags = T.unsupported_specifics(turn["text"], turn.get("q", ""))
+        tags = ['<span class="c-tag live">Live answer</span>', f'<span class="c-tag">{"under 1 s" if turn["secs"] < 1 else f"{turn['secs']:.0f} s"}</span>']
+        if flags:
+            tags.append(f'<span class="c-tag warn">{len(flags)} unverified detail{"s" if len(flags) > 1 else ""}</span>')
+        return bot_html(rich(turn["text"], flags), f"{BOT_NAME} · Model 2, answering live", "ft", " ".join(tags))
     if turn["kind"] == "nomatch":
         sug = "".join(f"<li>{rich(gen.iloc[i]['instruction'])}</li>" for i in turn["alts"])
-        return bot_html("I don't have a recorded answer for anything close to that, so I won't guess. "
+        lead = "The live model did not answer in time. " if turn.get("fallback") else ""
+        return bot_html(lead + "I don't have a recorded answer for anything close to that, so I won't guess. "
                         f"The nearest questions I was tested on are:<ul style='margin:.4rem 0 0'>{sug}</ul>",
                         BOT_NAME, "sys")
     models = {WHO[0]: ["finetuned"], WHO[1]: ["baseline"]}.get(turn["who"], ["baseline", "finetuned"])
-    return "".join(answer_html(gen, summ, turn, m) for m in models)
+    note = ""
+    if turn.get("fallback"):
+        note = bot_html("The live model did not answer in time, so here is the closest recorded answer instead.", BOT_NAME, "sys")
+    return note + "".join(answer_html(gen, summ, turn, m) for m in models)
+
+
+
+def status_html():
+    ok = st.session_state.get("live_ok")
+    if ok is False:
+        return '<div class="c-status"><i class="off"></i>Live model unavailable, replaying</div></div>'
+    return f'<div class="c-status"><i></i>{"Live model connected" if ok else "Live on Hugging Face"}</div></div>'
 
 
 def _queue(text):
@@ -485,9 +542,10 @@ def page_assistant():
         st.markdown(
             f'<div class="c-head"><div class="c-avatar icon">{bot_icon(48)}</div><div><div class="c-name">{BOT_NAME}</div>'
             f'<div class="c-sub">{html.escape(sub)}</div></div>'
-            '<div class="c-status"><i></i>Replaying test answers</div></div>'
-            '<div class="c-disclose">Every reply is the model\'s real output on a held-out test question. The free hosting tier cannot run '
-            'Llama live, so a typed message is matched to the closest recorded question, and the reply shows the match.</div>',
+            + status_html() +
+            '<div class="c-disclose">Messages you type are answered live by Barbie\'s fine-tuned model, hosted on Hugging Face. '
+            'Suggested questions replay the models\' recorded answers from the test set. Model 1 is not hosted, so its answers '
+            'are always recorded ones.</div>',
             unsafe_allow_html=True)
         if gen is None:
             return empty("Recorded answers")
@@ -501,18 +559,34 @@ def page_assistant():
         for turn in st.session_state.thread:
             st.markdown(render_turn(gen, summ, turn), unsafe_allow_html=True)
 
-        q = (prompt or st.session_state.pop("queued", None) or "").strip()
+        queued = st.session_state.pop("queued", None)
+        typed = (prompt or "").strip()
+        q = (typed or queued or "").strip()
         if q:
             st.session_state.thread.append({"role": "user", "text": q})
             st.markdown(user_html(q), unsafe_allow_html=True)
             slot = st.empty()
-            slot.markdown(bot_html('<div class="c-typing"><span></span><span></span><span></span></div>', BOT_NAME, "sys"),
+            go_live = bool(typed) and who == WHO[0]
+            wait = (' <span class="g-note" style="margin-left:.4rem">Barbie is writing live. If she has been asleep, '
+                    'the first answer can take up to a minute.</span>' if go_live else "")
+            slot.markdown(bot_html('<div class="c-typing"><span></span><span></span><span></span></div>' + wait, BOT_NAME, "sys"),
                           unsafe_allow_html=True)
-            hits = match(gen, q, k=3)
-            idx, sim = hits[0]
-            turn = ({"role": "bot", "kind": "answer", "row": idx, "sim": sim, "who": who} if sim >= MATCH_MIN
-                    else {"role": "bot", "kind": "nomatch", "alts": [i for i, _ in hits]})
-            time.sleep(0.55)
+            turn, fallback = None, False
+            if go_live:
+                try:
+                    text, secs = ask_live(q)
+                    turn = {"role": "bot", "kind": "live", "text": text, "secs": secs, "q": q}
+                    st.session_state.live_ok = True
+                except Exception:
+                    st.session_state.live_ok = False
+                    fallback = True
+            if turn is None:
+                hits = match(gen, q, k=3)
+                idx, sim = hits[0]
+                turn = ({"role": "bot", "kind": "answer", "row": idx, "sim": sim, "who": who, "fallback": fallback}
+                        if sim >= MATCH_MIN
+                        else {"role": "bot", "kind": "nomatch", "alts": [i for i, _ in hits], "fallback": fallback})
+                time.sleep(0.4)
             slot.markdown(render_turn(gen, summ, turn), unsafe_allow_html=True)
             st.session_state.thread.append(turn)
 
