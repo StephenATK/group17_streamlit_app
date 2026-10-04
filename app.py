@@ -11,6 +11,7 @@ import html
 import json
 import math
 import re
+import time
 from pathlib import Path
 
 import numpy as np
@@ -124,7 +125,58 @@ h1, h2, h3, .g-display {{ font-family: 'Bricolage Grotesque', 'Segoe UI', system
 .g-flow span {{ display: block; color: {FT}; font-weight: 600; font-size: 0.9rem; }}
 .g-flow b {{ font-weight: 600; }}
 .g-note {{ color: {MUTED}; font-size: 0.92rem; }}
-@media (max-width: 640px) {{ .g-title {{ font-size: 1.8rem; }} .g-stat + .g-stat {{ border-left: none; padding-left: 0; }} }}
+
+/* ===== assistant (chat product) ===== */
+.st-key-chatwin {{ max-width: 860px; margin: 0 auto; }}
+.c-head {{ display: flex; align-items: center; gap: 0.9rem; padding: 0.95rem 1.15rem; border: 1px solid {LINE}; border-radius: 18px;
+          background: #fff; box-shadow: 0 1px 2px rgba(23,35,59,.05), 0 10px 30px rgba(23,35,59,.07); margin: 0.2rem 0 0.6rem; }}
+.c-avatar {{ width: 46px; height: 46px; flex: 0 0 46px; border-radius: 50%; background: {FT}; color: #fff; display: grid; place-items: center;
+            font-family: 'Bricolage Grotesque', sans-serif; font-weight: 750; font-size: 1.05rem; }}
+.c-avatar.sm {{ width: 30px; height: 30px; flex: 0 0 30px; font-size: 0.74rem; }}
+.c-avatar.base {{ background: {BASE}; }}
+.c-avatar.sys {{ background: {INK}; }}
+.c-row.bot .c-msg.sys {{ background: #fff; border: 1px solid {LINE}; }}
+.st-key-chips button {{ justify-content: flex-start; }}
+.st-key-chips button p {{ text-align: left; }}
+.st-key-chips button > div, .st-key-chips button [data-testid="stMarkdownContainer"] {{ justify-content: flex-start; text-align: left; width: 100%; }}
+.c-msg li, .c-msg ul {{ font-size: 0.97rem; line-height: 1.5; font-family: inherit; }}
+.c-name {{ font-weight: 600; font-size: 1.1rem; line-height: 1.2; }}
+.c-sub {{ color: {MUTED}; font-size: 0.88rem; }}
+.c-status {{ margin-left: auto; font-size: 0.84rem; color: {MUTED}; display: flex; align-items: center; gap: 0.45rem; white-space: nowrap; }}
+.c-status i {{ width: 8px; height: 8px; border-radius: 50%; background: #2E9E5B; display: inline-block; }}
+.c-disclose {{ color: {MUTED}; font-size: 0.86rem; margin: 0 0.2rem 1rem; line-height: 1.5; }}
+.c-row {{ display: flex; gap: 0.6rem; margin: 0.7rem 0; align-items: flex-end; }}
+.c-row.user {{ justify-content: flex-end; }}
+.c-msg {{ max-width: 80%; padding: 0.78rem 1.05rem; border-radius: 18px; line-height: 1.58; font-size: 1.01rem; overflow-wrap: anywhere; }}
+.c-row.user .c-msg {{ background: {INK}; color: #fff; border-bottom-right-radius: 6px; }}
+.c-row.user .g-slot {{ background: rgba(255,255,255,.16); color: #fff; }}
+.c-row.bot .c-msg {{ background: {SURFACE}; border: 1px solid {LINE}; border-bottom-left-radius: 6px; }}
+.c-row.bot .c-msg.ft {{ background: #F1F8F8; border-color: #CFE6E8; }}
+.c-who {{ font-size: 0.8rem; font-weight: 600; color: {MUTED}; margin-bottom: 0.25rem; }}
+.c-meta {{ font-size: 0.8rem; color: {MUTED}; margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.3rem 0.5rem; }}
+.c-tag {{ border: 1px solid {LINE}; background: #fff; border-radius: 999px; padding: 0.05rem 0.55rem; }}
+.c-tag.warn {{ border-color: #F2C9C2; background: #FBE9E6; color: {ALERT}; }}
+.c-msg details {{ margin-top: 0.55rem; }}
+.c-msg details summary {{ cursor: pointer; color: {FT}; font-size: 0.85rem; font-weight: 600; }}
+.c-msg details div {{ margin-top: 0.4rem; padding: 0.6rem 0.8rem; border-left: 4px solid {AGENT}; background: #FFFBF2; border-radius: 4px 10px 10px 4px; font-size: 0.95rem; }}
+.c-typing {{ display: inline-flex; gap: 5px; padding: 0.2rem 0.1rem; }}
+.c-typing span {{ width: 8px; height: 8px; border-radius: 50%; background: {MUTED}; animation: cblink 1.2s infinite both; }}
+.c-typing span:nth-child(2) {{ animation-delay: .2s; }} .c-typing span:nth-child(3) {{ animation-delay: .4s; }}
+@keyframes cblink {{ 0%, 80%, 100% {{ opacity: .25; }} 40% {{ opacity: 1; }} }}
+@media (prefers-reduced-motion: reduce) {{ .c-typing span {{ animation: none; opacity: .6; }} }}
+.c-suggest {{ font-size: 0.86rem; color: {MUTED}; font-weight: 600; margin: 1.1rem 0 0.35rem; }}
+.st-key-chips button {{ border-radius: 999px; border: 1px solid #CFE6E8; background: #fff; color: #065C63; font-size: 0.9rem;
+                       padding: 0.28rem 0.85rem; min-height: 0; text-align: left; white-space: normal; height: auto; }}
+.st-key-chips button:hover {{ background: #F1F8F8; border-color: {FT}; color: #065C63; }}
+.st-key-chattools button {{ border-radius: 999px; font-size: 0.86rem; padding: 0.2rem 0.8rem; min-height: 0; }}
+.st-key-who [role="radiogroup"] {{ gap: 0.4rem; }}
+.st-key-who [role="radiogroup"] label {{ border: 1px solid {LINE}; border-radius: 999px; padding: 0.22rem 0.8rem 0.22rem 0.5rem; background: #fff; }}
+[data-testid="stChatInput"] textarea {{ font-size: 1rem; }}
+[data-testid="stChatInput"] {{ border-radius: 16px; }}
+[data-testid="stBottomBlockContainer"] {{ max-width: 900px; margin: 0 auto; }}
+[data-testid="stSidebar"] .g-mark {{ width: 38px; height: 38px; border-radius: 12px; background: {FT}; color: #fff; display: grid; place-items: center;
+                                    font-family: 'Bricolage Grotesque', sans-serif; font-weight: 750; margin-bottom: 0.6rem; }}
+@media (max-width: 640px) {{ .g-title {{ font-size: 1.8rem; }} .g-stat + .g-stat {{ border-left: none; padding-left: 0; }} .c-msg {{ max-width: 92%; }} .c-status {{ display: none; }} }}
 </style>
 """,
     unsafe_allow_html=True,
@@ -162,6 +214,11 @@ def load_csv(name):
 def model_label(summ, key):
     default = {"baseline": "Baseline (zero-shot)", "finetuned": "Fine-tuned (QLoRA)"}[key]
     return (summ or {}).get("models", {}).get(key, {}).get("label", default)
+
+
+def model_name(cfg):
+    mid = (cfg or {}).get("model_id", "meta-llama/Llama-3.2-1B-Instruct")
+    return mid.split("/")[-1].replace("-", " ").replace("Llama 3.2", "Llama 3.2")
 
 
 def fmt(v, d=3):
@@ -249,15 +306,150 @@ def chart(fig, height=None):
     st.plotly_chart(fig, width="stretch", config=PLOT_CFG)
 
 
+
 # ----------------------------------------------------------------------------
-# Pages
+# Assistant: chat product over the recorded held-out answers
+# ----------------------------------------------------------------------------
+MATCH_MIN = 0.30   # below this cosine similarity the bot says it has no close recorded answer
+WHO = ["Model 2 · fine-tuned", "Model 1 · baseline", "Compare both"]
+
+
+@st.cache_resource(show_spinner=False)
+def build_index(texts: tuple):
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    vec = TfidfVectorizer(analyzer="char_wb", ngram_range=(3, 5), sublinear_tf=True, lowercase=True)
+    X = vec.fit_transform([T.strip_placeholders(t, " ") for t in texts])
+    return vec, X
+
+
+def match(gen, q, k=1):
+    vec, X = build_index(tuple(gen["instruction"].astype(str)))
+    sims = (X @ vec.transform([T.strip_placeholders(q, " ")]).T).toarray().ravel()
+    order = np.argsort(-sims)[:k]
+    return [(int(i), float(sims[i])) for i in order]
+
+
+def user_html(text):
+    return f'<div class="c-row user"><div class="c-msg">{rich(text)}</div></div>'
+
+
+def bot_html(body_html, who="Model 2 · fine-tuned", css="ft", meta="", extra=""):
+    av = {"base": "base", "sys": "sys"}.get(css, "")
+    initials = {"base": "M1", "sys": "G17"}.get(css, "M2")
+    return (f'<div class="c-row bot"><div class="c-avatar sm {av}">{initials}</div><div class="c-msg {css}">'
+            f'<div class="c-who">{html.escape(who)}</div>{body_html}{extra}'
+            + (f'<div class="c-meta">{meta}</div>' if meta else "") + "</div></div>")
+
+
+def answer_html(gen, summ, turn, model):
+    r = gen.iloc[turn["row"]]
+    resp = r[f"resp_{model}"]
+    flags = row_flags(r, model)
+    tags = [f'<span class="c-tag">{html.escape(str(r.get("intent", "")).replace("_", " "))}</span>']
+    k = f"rougeL_{model}"
+    if k in r and pd.notna(r[k]):
+        tags.append(f'<span class="c-tag">ROUGE-L {r[k]:.2f}</span>')
+    if flags:
+        tags.append(f'<span class="c-tag warn">{len(flags)} unverified detail{"s" if len(flags) > 1 else ""}</span>')
+    extra = ""
+    if turn["sim"] < 0.995:
+        extra += (f'<details><summary>Answered from the closest recorded question ({turn["sim"]:.0%} match)</summary>'
+                  f'<div>{rich(r["instruction"])}</div></details>')
+    extra += f'<details><summary>Compare with the human agent\'s answer</summary><div>{rich(r["reference"])}</div></details>'
+    who = f"Model 2 · {model_label(summ, 'finetuned')}" if model == "finetuned" else f"Model 1 · {model_label(summ, 'baseline')}"
+    return bot_html(rich(resp, flags), who, "ft" if model == "finetuned" else "base", " ".join(tags), extra)
+
+
+def render_turn(gen, summ, turn):
+    if turn["role"] == "user":
+        return user_html(turn["text"])
+    if turn["kind"] == "nomatch":
+        sug = "".join(f"<li>{rich(gen.iloc[i]['instruction'])}</li>" for i in turn["alts"])
+        return bot_html("I don't have a recorded answer for anything close to that, so I won't guess. "
+                        f"The nearest questions I was tested on are:<ul style='margin:.4rem 0 0'>{sug}</ul>",
+                        "Assistant", "sys")
+    models = {"Model 2 · fine-tuned": ["finetuned"], "Model 1 · baseline": ["baseline"]}.get(turn["who"], ["baseline", "finetuned"])
+    return "".join(answer_html(gen, summ, turn, m) for m in models)
+
+
+def _queue(text):
+    st.session_state.queued = text
+
+
+def page_assistant():
+    gen, summ, cfg = load_csv("generations.csv"), load_json("results_summary.json"), load_json("config.json")
+    prompt = st.chat_input("Message the support assistant", disabled=gen is None)   # pinned to the bottom of the page
+
+    with st.container(key="chatwin"):
+        sub = (f"{model_name(cfg)}, fine-tuned on {cfg['n_train']:,} support conversations" if cfg and cfg.get("n_train")
+               else "Llama 3.2 1B Instruct, fine-tuned with QLoRA")
+        st.markdown(
+            '<div class="c-head"><div class="c-avatar">G17</div><div><div class="c-name">Customer support assistant</div>'
+            f'<div class="c-sub">{html.escape(sub)}</div></div>'
+            '<div class="c-status"><i></i>Replaying test answers</div></div>'
+            '<div class="c-disclose">Every reply is the model\'s real output on a held-out test question. The free hosting tier cannot run '
+            'Llama live, so a typed message is matched to the closest recorded question, and the reply shows the match.</div>',
+            unsafe_allow_html=True)
+        if gen is None:
+            return empty("Recorded answers")
+
+        st.session_state.setdefault("thread", [])
+        st.session_state.setdefault("sugg_seed", 17)
+        who = st.radio("Who answers", WHO, horizontal=True, label_visibility="collapsed", key="who")
+
+        st.markdown(bot_html("Hello. I can help with orders, refunds, payments, delivery and your account. "
+                             "Type a message below or pick one of the suggestions.", "Assistant", "sys"), unsafe_allow_html=True)
+        for turn in st.session_state.thread:
+            st.markdown(render_turn(gen, summ, turn), unsafe_allow_html=True)
+
+        q = (prompt or st.session_state.pop("queued", None) or "").strip()
+        if q:
+            st.session_state.thread.append({"role": "user", "text": q})
+            st.markdown(user_html(q), unsafe_allow_html=True)
+            slot = st.empty()
+            slot.markdown(bot_html('<div class="c-typing"><span></span><span></span><span></span></div>', "Assistant", "sys"),
+                          unsafe_allow_html=True)
+            hits = match(gen, q, k=3)
+            idx, sim = hits[0]
+            turn = ({"role": "bot", "kind": "answer", "row": idx, "sim": sim, "who": who} if sim >= MATCH_MIN
+                    else {"role": "bot", "kind": "nomatch", "alts": [i for i, _ in hits]})
+            time.sleep(0.55)
+            slot.markdown(render_turn(gen, summ, turn), unsafe_allow_html=True)
+            st.session_state.thread.append(turn)
+
+        st.markdown('<div class="c-suggest">Try asking</div>', unsafe_allow_html=True)
+        rng = np.random.default_rng(st.session_state.sugg_seed)
+        if "category" in gen.columns and gen["category"].nunique() >= 4:
+            cats = rng.choice(gen["category"].dropna().unique(), size=4, replace=False)
+            picks = [int(rng.choice(np.flatnonzero(gen["category"].values == c))) for c in cats]
+        else:
+            picks = [int(i) for i in rng.choice(len(gen), size=min(4, len(gen)), replace=False)]
+        with st.container(key="chips"):
+            cols = st.columns(2)
+            for j, i in enumerate(picks):
+                text = str(gen.iloc[i]["instruction"])
+                cols[j % 2].button(text if len(text) <= 70 else text[:67] + "…", key=f"chip_{i}_{j}", on_click=_queue, args=(text,),
+                                   width="stretch")
+        with st.container(key="chattools"):
+            c1, c2, _ = st.columns([1.3, 1.3, 3])
+            if c1.button("More suggestions"):
+                st.session_state.sugg_seed += 1
+                st.rerun()
+            if c2.button("New conversation", disabled=not st.session_state.thread):
+                st.session_state.thread = []
+                st.rerun()
+
+
+# ----------------------------------------------------------------------------
+# Report pages
 # ----------------------------------------------------------------------------
 def page_overview():
-    eda, summ, gen = load_json("eda_stats.json"), load_json("results_summary.json"), load_csv("generations.csv")
+    eda, summ, gen, cfg = load_json("eda_stats.json"), load_json("results_summary.json"), load_csv("generations.csv"), load_json("config.json")
+    n_tr = f"{cfg['n_train']:,} " if cfg and cfg.get("n_train") else ""
     st.markdown('<div class="g-hero">Teaching a small Llama to answer customers</div>'
-                '<div class="g-hero-sub">We took Llama 3.2 (1B), asked it real customer-service questions, then fine-tuned it on '
-                'about 27,000 support conversations and asked again. No retrieval, no external knowledge: everything the bot knows '
-                'has to live in its weights.</div>', unsafe_allow_html=True)
+                f'<div class="g-hero-sub">We took {html.escape(model_name(cfg))}, asked it customer-service questions, then fine-tuned it on '
+                f'{n_tr}support conversations and asked the same questions again. No retrieval, no external knowledge: everything the bot '
+                'knows has to live in its weights.</div>', unsafe_allow_html=True)
 
     if gen is not None and len(gen):
         st.markdown("#### One held-out question, both models")
@@ -589,65 +781,21 @@ def page_best():
     )
 
 
-def page_chat():
-    header(7, "Ask the bot",
-           "Pick any held-out question and compare what each model actually answered. The free hosting tier cannot run Llama, "
-           "so these answers were generated in the notebook and are replayed here unchanged.")
-    gen, summ = load_csv("generations.csv"), load_json("results_summary.json")
-    if gen is None:
-        return empty("Generated answers")
-
-    live_url, live_tok = None, None
-    try:
-        live_url, live_tok = st.secrets.get("HF_ENDPOINT_URL"), st.secrets.get("HF_TOKEN")
-    except Exception:
-        pass
-    mode = "Replay"
-    if live_url:
-        mode = st.radio("Mode", ["Replay test answers", "Live fine-tuned model"], horizontal=True)
-
-    if mode.startswith("Replay"):
-        c1, c2 = st.columns([1, 2], gap="medium")
-        cats = ["All categories"] + sorted(gen["category"].dropna().unique())
-        cat = c1.selectbox("Category", cats)
-        pool = gen if cat == "All categories" else gen[gen["category"] == cat]
-        pick = c2.selectbox("Customer question", pool.index,
-                            format_func=lambda i: f"{str(pool.at[i, 'instruction'])[:95]}  ({pool.at[i, 'intent']})")
-        transcript(pool.loc[pick], summ)
-    else:
-        if "chat" not in st.session_state:
-            st.session_state.chat = []
-        for role, msg in st.session_state.chat:
-            st.chat_message(role).write(msg)
-        prompt = st.chat_input("Type a customer message")
-        if prompt:
-            st.session_state.chat.append(("user", prompt)); st.chat_message("user").write(prompt)
-            try:
-                from huggingface_hub import InferenceClient
-                cfg = load_json("config.json") or {}
-                client = InferenceClient(model=live_url, token=live_tok)
-                msgs = [{"role": "system", "content": cfg.get("system_prompt", "You are a helpful customer-service assistant.")},
-                        {"role": "user", "content": prompt}]
-                reply = client.chat_completion(messages=msgs, max_tokens=cfg.get("max_new_tokens", 256), temperature=0.0).choices[0].message.content
-            except Exception as e:
-                reply = f"The endpoint did not respond ({e}). Check HF_ENDPOINT_URL and HF_TOKEN in the app's secrets."
-            st.session_state.chat.append(("assistant", reply)); st.chat_message("assistant").write(reply)
-
-
 PAGES = {
-    "Overview": page_overview,
+    "Assistant": page_assistant,
+    "About the project": page_overview,
     "1. Cleaning": page_data,
     "2. Exploring the data": page_eda,
     "3. Representation": page_repr,
     "4. The two models": page_models,
     "5. Evaluation": page_eval,
     "6. Conclusions": page_best,
-    "7. Ask the bot": page_chat,
 }
 
 with st.sidebar:
-    st.markdown('<div class="g-brand">Llama customer-service chatbot</div>'
-                '<div class="g-brand-sub">Group 17 · MSBA 610 Advanced Text Analytics</div>', unsafe_allow_html=True)
+    st.markdown('<div class="g-mark">G17</div><div class="g-brand">Customer support assistant</div>'
+                '<div class="g-brand-sub">Group 17, MSBA 610 Advanced Text Analytics. A Llama chatbot with no retrieval.</div>',
+                unsafe_allow_html=True)
     choice = st.radio("Go to", list(PAGES), label_visibility="collapsed")
     st.markdown(f'<div class="g-legend"><span class="g-dot" style="background:{BASE}"></span>Model 1, baseline<br>'
                 f'<span class="g-dot" style="background:{FT}"></span>Model 2, fine-tuned<br>'
