@@ -113,6 +113,9 @@ h1, h2, h3, .g-display {{ font-family: 'Bricolage Grotesque', 'Segoe UI', system
 .g-table, .g-table th, .g-table td {{ border-left: none !important; border-right: none !important; border-top: none !important; }}
 .g-table {{ border: none !important; }}
 .g-before {{ background: {SURFACE}; border: 1px solid {LINE}; }}
+.g-del {{ background: #FBE3DF; color: {ALERT}; border-radius: 4px; padding: 0 .12rem; font-weight: 600; }}
+.g-ins {{ background: #DDF2E6; color: #1E7A47; border-radius: 4px; padding: 0 .12rem; font-weight: 600; }}
+.g-why {{ margin: .35rem 0 1.1rem; display: flex; flex-wrap: wrap; gap: .35rem; }}
 .g-after {{ background: #FFFFFF; border: 1px solid {LINE}; border-left: 5px solid {DATA}; }}
 
 /* empty state */
@@ -342,6 +345,64 @@ def chart(fig, height=None):
 
 
 
+
+# ----------------------------------------------------------------------------
+# Making invisible cleaning changes visible
+# ----------------------------------------------------------------------------
+_INVIS = {" ": "␣", "\u00a0": "<small>nbsp</small>", "\t": "<small>tab</small>", "\n": "⏎", "\r": "↵"}
+
+
+def _show_chars(seg):
+    """Render a changed segment so whitespace and control characters can be seen."""
+    out = []
+    for ch in seg:
+        if ch in _INVIS:
+            out.append(_INVIS[ch])
+        elif ord(ch) < 32 or ord(ch) == 127:
+            out.append("�")
+        else:
+            out.append(html.escape(ch))
+    return "".join(out)
+
+
+def diff_pair(raw, cleaned):
+    """Return (before_html, after_html) with removed text marked red and added text marked green."""
+    import difflib
+    sm = difflib.SequenceMatcher(None, raw, cleaned, autojunk=False)
+    before, after = [], []
+    for op, i1, i2, j1, j2 in sm.get_opcodes():
+        a, b = raw[i1:i2], cleaned[j1:j2]
+        if op == "equal":
+            before.append(rich(a)); after.append(rich(b))
+        else:
+            if a:
+                before.append(f'<span class="g-del" title="removed">{_show_chars(a)}</span>')
+            if b:
+                after.append(f'<span class="g-ins" title="added">{_show_chars(b)}</span>')
+    return "".join(before), "".join(after)
+
+
+def explain_change(raw, cleaned):
+    """Plain-language labels for what the cleaner changed in one text."""
+    why = []
+    if raw != raw.strip():
+        why.append("spaces at the start or end removed")
+    if re.search(r"[ \t]{2,}", raw.strip()):
+        why.append("repeated spaces collapsed")
+    if "\u00a0" in raw:
+        why.append("non-breaking space replaced")
+    if re.search("[\u2018\u2019\u201a\u201b\u201c\u201d\u201e]", raw):
+        why.append("curly quotes straightened")
+    if re.search("[\u2013\u2014]", raw):
+        why.append("long dash replaced")
+    if re.search(r"\{\{\s+|\s+\}\}", raw):
+        why.append("slot spacing fixed")
+    if re.search("[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]", raw):
+        why.append("hidden control characters removed")
+    if "\r" in raw or re.search(r"\n{3,}", raw):
+        why.append("line breaks tidied")
+    return why or ["character-level normalisation (unicode)"]
+
 # ----------------------------------------------------------------------------
 # Assistant: chat product over the recorded held-out answers
 # ----------------------------------------------------------------------------
@@ -523,14 +584,28 @@ def page_data():
            "the slot instead of inventing an order number.")
     log = load_json("cleaning_log.json")
     if log:
-        stats([(f"{log['rows_raw']:,}", "raw records"), (log["dropped_empty"], "empty records removed"),
-               (log["dropped_duplicate_questions"], "duplicate questions removed"), (f"{log['rows_clean']:,}", "clean records")])
+        stats([(f"{log['rows_raw']:,}", "raw records"),
+               (f"{log.get('changed_instruction', 0):,}", "questions with formatting fixed"),
+               (f"{log['dropped_duplicate_questions']:,}", "duplicate questions removed"),
+               (f"{log['rows_clean']:,}", "clean records")])
+        dup, emp = log["dropped_duplicate_questions"], log["dropped_empty"]
+        note = ("The Bitext data arrives fairly clean, so most fixes are invisible formatting: stray spaces, odd space characters "
+                "and slot spacing. ")
+        if dup:
+            note += f"The biggest change is removing {dup:,} repeated questions, so no question can appear in both training and testing. "
+        note += f"{emp:,} empty record{'s were' if emp != 1 else ' was'} removed." if emp else "No records were empty."
+        st.markdown(f'<p class="g-note">{note}</p>', unsafe_allow_html=True)
         if log.get("regex_examples"):
             st.markdown("#### What cleaning changed in the real data")
-            for ex in log["regex_examples"][:3]:
+            st.markdown('<p class="g-note">Red marks what was removed and green what was added. ␣ is a space, '
+                        '<small>nbsp</small> a non-breaking space and ⏎ a line break.</p>', unsafe_allow_html=True)
+            for ex in log["regex_examples"][:4]:
+                b_html, a_html = diff_pair(ex["raw"], ex["cleaned"])
                 c1, c2 = st.columns(2, gap="medium")
-                c1.markdown(bubble("Before", ex["raw"], "g-before"), unsafe_allow_html=True)
-                c2.markdown(bubble("After", ex["cleaned"], "g-after"), unsafe_allow_html=True)
+                c1.markdown(f'<div><div class="g-who">Before</div><div class="g-bubble g-before">{b_html}</div></div>', unsafe_allow_html=True)
+                c2.markdown(f'<div><div class="g-who">After</div><div class="g-bubble g-after">{a_html}</div></div>', unsafe_allow_html=True)
+                tags = "".join(f'<span class="g-chip">{html.escape(w)}</span>' for w in explain_change(ex["raw"], ex["cleaned"]))
+                st.markdown(f'<div class="g-why">{tags}</div>', unsafe_allow_html=True)
     else:
         empty("Cleaning log")
 
@@ -539,11 +614,16 @@ def page_data():
     sample = "  I\u2019m trying to cancel order {{ Order Number }}  \u2014 email me at jane@shop.com or call +233 24 123 4567 "
     txt = st.text_area("Customer message", sample, height=96, label_visibility="collapsed")
     rep = T.clean_report(txt)
-    c1, c2 = st.columns([3, 2], gap="medium")
-    c1.markdown(bubble("Cleaned text", rep["cleaned"], "g-after"), unsafe_allow_html=True)
+    b_html, a_html = diff_pair(txt, rep["cleaned"])
+    c1, c2 = st.columns(2, gap="medium")
+    c1.markdown(f'<div><div class="g-who">Before</div><div class="g-bubble g-before">{b_html}</div></div>', unsafe_allow_html=True)
+    c2.markdown(f'<div><div class="g-who">After</div><div class="g-bubble g-after">{a_html}</div></div>', unsafe_allow_html=True)
+    if txt != rep["cleaned"]:
+        tags = "".join(f'<span class="g-chip">{html.escape(w)}</span>' for w in explain_change(txt, rep["cleaned"]))
+        st.markdown(f'<div class="g-why">{tags}</div>', unsafe_allow_html=True)
     slots = ", ".join(rep["placeholders"]) or "none"
     specs = "".join(f"<li><b>{html.escape(k)}</b>: {html.escape(v)}</li>" for k, v in rep["specifics"]) or "<li>none</li>"
-    c2.markdown(f"<div class='g-who'>Slots found</div><p>{html.escape(slots)}</p>"
+    st.markdown(f"<div class='g-who'>Slots found</div><p>{html.escape(slots)}</p>"
                 f"<div class='g-who'>Details the hallucination check would flag if a bot made them up</div><ul>{specs}</ul>",
                 unsafe_allow_html=True)
 
