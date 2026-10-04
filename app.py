@@ -51,7 +51,10 @@ html, body, .stApp, .stMarkdown, p, li, label, input, textarea, button, table, t
   font-family: 'Instrument Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }}
 .stApp {{ color: {INK}; }}
-.block-container {{ max-width: 1180px; padding-top: 2.2rem; padding-bottom: 4rem; }}
+.block-container {{ max-width: 1180px; padding-top: 4.75rem; padding-bottom: 4rem; }}
+[data-testid="stHeader"] {{ background: transparent; }}
+[data-testid="stMainBlockContainer"] {{ padding-top: 4.75rem; }}
+.g-step {{ line-height: 1.4; }}
 .stMarkdown p, .stMarkdown li {{ font-size: 1.04rem; line-height: 1.6; }}
 h1, h2, h3, .g-display {{ font-family: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif; color: {INK}; letter-spacing: -0.015em; }}
 #MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"] {{ visibility: hidden; height: 0; }}
