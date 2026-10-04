@@ -39,7 +39,8 @@ ALERT = "#B83A2A"      # flagged details
 DATA = "#4A5F86"       # dataset facts (not a model)
 CATS = ["#4A5F86", "#7C9A47", "#9A5B86", "#3F8C77", "#B8693E", "#6A63A6", "#8E7B3F", "#3D7EA6", "#A0525A", "#5C8C8C", "#6E7480"]
 
-st.set_page_config(page_title="Group 17 · Llama customer-service chatbot", page_icon="💬", layout="wide")
+_ICON_PNG = Path(__file__).parent / "assets" / "barbie_icon.png"
+st.set_page_config(page_title="Barbie · Group 17 customer support assistant", page_icon=str(_ICON_PNG) if _ICON_PNG.exists() else "💬", layout="wide")
 
 st.markdown(
     f"""
@@ -134,7 +135,9 @@ h1, h2, h3, .g-display {{ font-family: 'Bricolage Grotesque', 'Segoe UI', system
             font-family: 'Bricolage Grotesque', sans-serif; font-weight: 750; font-size: 1.05rem; }}
 .c-avatar.sm {{ width: 30px; height: 30px; flex: 0 0 30px; font-size: 0.74rem; }}
 .c-avatar.base {{ background: {BASE}; }}
-.c-avatar.sys {{ background: {INK}; }}
+.c-avatar.sys {{ background: transparent; }}
+.c-icon {{ display: block; border-radius: 50%; box-shadow: 0 1px 2px rgba(6,94,104,.18), 0 3px 10px rgba(6,94,104,.16); }}
+.c-avatar.icon {{ background: transparent; }}
 .c-row.bot .c-msg.sys {{ background: #fff; border: 1px solid {LINE}; }}
 .st-key-chips button {{ justify-content: flex-start; }}
 .st-key-chips button p {{ text-align: left; }}
@@ -195,6 +198,38 @@ pio.templates["g17"] = go.layout.Template(layout=dict(
 pio.templates.default = "g17"
 PLOT_CFG = {"displaylogo": False, "modeBarButtonsToRemove": ["lasso2d", "select2d"]}
 
+
+
+BOT_NAME = "Barbie"
+
+
+def bot_icon(size=46):
+    """Original assistant icon: a cute robot (antenna, big eyes, rosy cheeks) on a soft mint disc."""
+    return (f'<svg class="c-icon" viewBox="0 0 64 64" width="{size}" height="{size}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{BOT_NAME}">'
+            '<defs>'
+            '<linearGradient id="g17bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF9FA"/><stop offset="1" stop-color="#C6EBEE"/></linearGradient>'
+            '<linearGradient id="g17head" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22B5C0"/><stop offset="1" stop-color="#0B7A83"/></linearGradient>'
+            '<clipPath id="g17clip"><circle cx="32" cy="32" r="32"/></clipPath>'
+            '</defs>'
+            '<circle cx="32" cy="32" r="32" fill="url(#g17bg)"/>'
+            '<g clip-path="url(#g17clip)">'
+            '<rect x="20" y="48" width="24" height="18" rx="8" fill="#0B7A83"/>'                       # shoulders
+            '<rect x="27" y="45" width="10" height="5" rx="2" fill="#086770"/>'                        # neck
+            '</g>'
+            '<line x1="32" y1="9.5" x2="32" y2="16" stroke="#0B7A83" stroke-width="2.6" stroke-linecap="round"/>'  # antenna
+            '<circle cx="32" cy="8" r="3.4" fill="#F2B544"/><circle cx="31" cy="7" r="1" fill="#FFF3D1"/>'
+            '<rect x="10.5" y="26" width="5" height="11" rx="2.5" fill="#0B7A83"/>'                     # ears
+            '<rect x="48.5" y="26" width="5" height="11" rx="2.5" fill="#0B7A83"/>'
+            '<rect x="14" y="15" width="36" height="31" rx="12" fill="url(#g17head)"/>'                 # head
+            '<rect x="18.5" y="20" width="27" height="20.5" rx="9" fill="#FFFFFF"/>'                    # face screen
+            '<ellipse cx="26" cy="28.6" rx="3.1" ry="3.7" fill="#17233B"/>'                            # eyes
+            '<ellipse cx="38" cy="28.6" rx="3.1" ry="3.7" fill="#17233B"/>'
+            '<circle cx="27.2" cy="27.1" r="1.15" fill="#FFFFFF"/><circle cx="39.2" cy="27.1" r="1.15" fill="#FFFFFF"/>'
+            '<ellipse cx="22" cy="34" rx="2.4" ry="1.5" fill="#FF9AA8" opacity=".8"/>'                  # cheeks
+            '<ellipse cx="42" cy="34" rx="2.4" ry="1.5" fill="#FF9AA8" opacity=".8"/>'
+            '<path d="M28.4 33.6q3.6 3.2 7.2 0" stroke="#17233B" stroke-width="2" fill="none" stroke-linecap="round"/>'  # smile
+            '<path d="M53 11l1.1 2.4 2.4 1.1-2.4 1.1L53 18l-1.1-2.4-2.4-1.1 2.4-1.1z" fill="#F2B544"/>'  # sparkle
+            '</svg>')
 
 # ----------------------------------------------------------------------------
 # Data helpers
@@ -311,7 +346,7 @@ def chart(fig, height=None):
 # Assistant: chat product over the recorded held-out answers
 # ----------------------------------------------------------------------------
 MATCH_MIN = 0.30   # below this cosine similarity the bot says it has no close recorded answer
-WHO = ["Model 2 · fine-tuned", "Model 1 · baseline", "Compare both"]
+WHO = ["Barbie (Model 2, fine-tuned)", "Baseline (Model 1)", "Compare both"]
 
 
 @st.cache_resource(show_spinner=False)
@@ -334,9 +369,8 @@ def user_html(text):
 
 
 def bot_html(body_html, who="Model 2 · fine-tuned", css="ft", meta="", extra=""):
-    av = {"base": "base", "sys": "sys"}.get(css, "")
-    initials = {"base": "M1", "sys": "G17"}.get(css, "M2")
-    return (f'<div class="c-row bot"><div class="c-avatar sm {av}">{initials}</div><div class="c-msg {css}">'
+    avatar = '<div class="c-avatar sm base">M1</div>' if css == "base" else f'<div class="c-avatar sm icon">{bot_icon(30)}</div>'
+    return (f'<div class="c-row bot">{avatar}<div class="c-msg {css}">'
             f'<div class="c-who">{html.escape(who)}</div>{body_html}{extra}'
             + (f'<div class="c-meta">{meta}</div>' if meta else "") + "</div></div>")
 
@@ -356,7 +390,8 @@ def answer_html(gen, summ, turn, model):
         extra += (f'<details><summary>Answered from the closest recorded question ({turn["sim"]:.0%} match)</summary>'
                   f'<div>{rich(r["instruction"])}</div></details>')
     extra += f'<details><summary>Compare with the human agent\'s answer</summary><div>{rich(r["reference"])}</div></details>'
-    who = f"Model 2 · {model_label(summ, 'finetuned')}" if model == "finetuned" else f"Model 1 · {model_label(summ, 'baseline')}"
+    who = (f"{BOT_NAME} · Model 2, {model_label(summ, 'finetuned')}" if model == "finetuned"
+           else f"Baseline · Model 1, {model_label(summ, 'baseline')}")
     return bot_html(rich(resp, flags), who, "ft" if model == "finetuned" else "base", " ".join(tags), extra)
 
 
@@ -367,8 +402,8 @@ def render_turn(gen, summ, turn):
         sug = "".join(f"<li>{rich(gen.iloc[i]['instruction'])}</li>" for i in turn["alts"])
         return bot_html("I don't have a recorded answer for anything close to that, so I won't guess. "
                         f"The nearest questions I was tested on are:<ul style='margin:.4rem 0 0'>{sug}</ul>",
-                        "Assistant", "sys")
-    models = {"Model 2 · fine-tuned": ["finetuned"], "Model 1 · baseline": ["baseline"]}.get(turn["who"], ["baseline", "finetuned"])
+                        BOT_NAME, "sys")
+    models = {WHO[0]: ["finetuned"], WHO[1]: ["baseline"]}.get(turn["who"], ["baseline", "finetuned"])
     return "".join(answer_html(gen, summ, turn, m) for m in models)
 
 
@@ -378,13 +413,13 @@ def _queue(text):
 
 def page_assistant():
     gen, summ, cfg = load_csv("generations.csv"), load_json("results_summary.json"), load_json("config.json")
-    prompt = st.chat_input("Message the support assistant", disabled=gen is None)   # pinned to the bottom of the page
+    prompt = st.chat_input(f"Message {BOT_NAME}", disabled=gen is None)   # pinned to the bottom of the page
 
     with st.container(key="chatwin"):
-        sub = (f"{model_name(cfg)}, fine-tuned on {cfg['n_train']:,} support conversations" if cfg and cfg.get("n_train")
-               else "Llama 3.2 1B Instruct, fine-tuned with QLoRA")
+        sub = (f"Customer support assistant. {model_name(cfg)}, fine-tuned on {cfg['n_train']:,} support conversations"
+               if cfg and cfg.get("n_train") else "Customer support assistant. Llama 3.2 1B Instruct, fine-tuned with QLoRA")
         st.markdown(
-            '<div class="c-head"><div class="c-avatar">G17</div><div><div class="c-name">Customer support assistant</div>'
+            f'<div class="c-head"><div class="c-avatar icon">{bot_icon(48)}</div><div><div class="c-name">{BOT_NAME}</div>'
             f'<div class="c-sub">{html.escape(sub)}</div></div>'
             '<div class="c-status"><i></i>Replaying test answers</div></div>'
             '<div class="c-disclose">Every reply is the model\'s real output on a held-out test question. The free hosting tier cannot run '
@@ -397,8 +432,8 @@ def page_assistant():
         st.session_state.setdefault("sugg_seed", 17)
         who = st.radio("Who answers", WHO, horizontal=True, label_visibility="collapsed", key="who")
 
-        st.markdown(bot_html("Hello. I can help with orders, refunds, payments, delivery and your account. "
-                             "Type a message below or pick one of the suggestions.", "Assistant", "sys"), unsafe_allow_html=True)
+        st.markdown(bot_html(f"Hi, I'm {BOT_NAME}. I can help with orders, refunds, payments, delivery and your account. "
+                             "Type a message below or pick one of the suggestions.", BOT_NAME, "sys"), unsafe_allow_html=True)
         for turn in st.session_state.thread:
             st.markdown(render_turn(gen, summ, turn), unsafe_allow_html=True)
 
@@ -407,7 +442,7 @@ def page_assistant():
             st.session_state.thread.append({"role": "user", "text": q})
             st.markdown(user_html(q), unsafe_allow_html=True)
             slot = st.empty()
-            slot.markdown(bot_html('<div class="c-typing"><span></span><span></span><span></span></div>', "Assistant", "sys"),
+            slot.markdown(bot_html('<div class="c-typing"><span></span><span></span><span></span></div>', BOT_NAME, "sys"),
                           unsafe_allow_html=True)
             hits = match(gen, q, k=3)
             idx, sim = hits[0]
@@ -782,7 +817,7 @@ def page_best():
 
 
 PAGES = {
-    "Assistant": page_assistant,
+    f"Chat with {BOT_NAME}": page_assistant,
     "About the project": page_overview,
     "1. Cleaning": page_data,
     "2. Exploring the data": page_eda,
@@ -793,12 +828,12 @@ PAGES = {
 }
 
 with st.sidebar:
-    st.markdown('<div class="g-mark">G17</div><div class="g-brand">Customer support assistant</div>'
-                '<div class="g-brand-sub">Group 17, MSBA 610 Advanced Text Analytics. A Llama chatbot with no retrieval.</div>',
-                unsafe_allow_html=True)
+    st.markdown(f'<div style="margin-bottom:.6rem">{bot_icon(44)}</div><div class="g-brand">{BOT_NAME}</div>'
+                '<div class="g-brand-sub">Customer support assistant by Group 17, MSBA 610 Advanced Text Analytics. '
+                'A fine-tuned Llama chatbot with no retrieval.</div>', unsafe_allow_html=True)
     choice = st.radio("Go to", list(PAGES), label_visibility="collapsed")
     st.markdown(f'<div class="g-legend"><span class="g-dot" style="background:{BASE}"></span>Model 1, baseline<br>'
-                f'<span class="g-dot" style="background:{FT}"></span>Model 2, fine-tuned<br>'
+                f'<span class="g-dot" style="background:{FT}"></span>{BOT_NAME}, Model 2 (fine-tuned)<br>'
                 f'<span class="g-dot" style="background:{AGENT}"></span>Human agent reference</div>', unsafe_allow_html=True)
 
 PAGES[choice]()
