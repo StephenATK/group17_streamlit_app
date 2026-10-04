@@ -40,7 +40,8 @@ DATA = "#4A5F86"       # dataset facts (not a model)
 CATS = ["#4A5F86", "#7C9A47", "#9A5B86", "#3F8C77", "#B8693E", "#6A63A6", "#8E7B3F", "#3D7EA6", "#A0525A", "#5C8C8C", "#6E7480"]
 
 _ICON_PNG = Path(__file__).parent / "assets" / "barbie_icon.png"
-st.set_page_config(page_title="Barbie · Group 17 customer support assistant", page_icon=str(_ICON_PNG) if _ICON_PNG.exists() else "💬", layout="wide")
+st.set_page_config(page_title="Barbie · Group 17 customer support assistant", page_icon=str(_ICON_PNG) if _ICON_PNG.exists() else "💬", layout="wide",
+                   initial_sidebar_state="expanded")
 
 st.markdown(
     f"""
@@ -57,7 +58,8 @@ html, body, .stApp, .stMarkdown, p, li, label, input, textarea, button, table, t
 .g-step {{ line-height: 1.4; }}
 .stMarkdown p, .stMarkdown li {{ font-size: 1.04rem; line-height: 1.6; }}
 h1, h2, h3, .g-display {{ font-family: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif; color: {INK}; letter-spacing: -0.015em; }}
-#MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"] {{ visibility: hidden; height: 0; }}
+#MainMenu, footer, [data-testid="stDecoration"], [data-testid="stAppDeployButton"], [data-testid="stMainMenu"] {{ visibility: hidden; height: 0; }}
+[data-testid="stSidebarCollapsedControl"], [data-testid="stExpandSidebarButton"] {{ visibility: visible !important; }}
 
 /* sidebar */
 [data-testid="stSidebar"] {{ background: {SURFACE}; border-right: 1px solid {LINE}; }}
